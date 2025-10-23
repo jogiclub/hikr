@@ -1,0 +1,25 @@
+body{font-family: 'Spoqa Han Sans Neo', 'Spoqa Han Sans JP', sans-serif; font-size: 18px}
+
+.bg-primary{background-color: #4B2A6D!important;}
+
+.mCSB_inside > .mCSB_container{margin-right: 0!important;}
+
+
+.slick-prev, .slick-next, .slick-dots{display: none!important;}
+
+
+.footer-ground{}
+.footer-ground dl{width: 20%;}
+.footer-ground dl dt{border-left: 5px solid #ccc; padding-left: 15px}
+.footer-ground dl dd{border-left: 5px solid #ccc; padding-left: 15px}
+.footer-station{}
+.footer-station dl{width: 20%;}
+.footer-station dl dt{border-left: 5px solid #ccc; padding-left: 15px}
+.footer-station dl dd{border-left: 5px solid #ccc; padding-left: 15px}
+
+@media screen and (max-width: 1200px) {
+    .footer-ground dl{width: 100%;}
+    .footer-station dl{width: 100%;}
+}
+
+

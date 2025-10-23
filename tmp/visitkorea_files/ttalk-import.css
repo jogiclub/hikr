@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+#ttalk-frame{
+	position:fixed;z-index:999;bottom:30px;right:20px;
+}
+#ttalk-frame img{
+	width:65px;height:65px;cursor:pointer;
+}
+#ttalk-frame .ttalk-tooltip{
+	display: none;
+	position:fixed;bottom:50px;right:90px;
+	overflow: hidden;
+	opacity: 0;
+	width: 0;
+	height: 30px;
+	padding: 0 20px;
+	border-radius: 15px;
+	border: 1px solid rgba(0,0,0,0.4);
+	background: rgba(0,0,0,0.6);
+	font-family: "Segoe UI", "맑은 고딕", "Malgun Gothic", "애플 SD 산돌고딕 Neo", "Apple SD Gothic Neo", sans-serif;
+	font-size: 13px;
+	line-height: 28px;
+	color: #fff;
+	transition: all .3s;
+	box-sizing: border-box;
+}
+#ttalk-frame:hover .ttalk-tooltip{
+	display: inline-block;
+	width: auto;
+	opacity: 1;
+}
+#ttalkContainer{
+	display: none;
+	position:fixed;
+	z-index:9999;
+	bottom:108px;
+	right:20px;
+	overflow:hidden;
+	width:360px;
+	height:650px;
+	border-radius:20px;
+	box-shadow:0 0 6px rgba(0,0,0,0.2);
+}
+#ttalkContainer.is-active{
+	display: block;
+}
+#ttalkFrame{
+	width:100%;
+	height:100%;
+	border-radius:10px;
+	border:0;
+	overflow:hidden;
+}
