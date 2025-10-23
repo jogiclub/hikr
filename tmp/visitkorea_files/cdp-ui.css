@@ -1,0 +1,220 @@
+button {
+  border: 0 none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/* 모달 스타일 */
+.ui-cdp-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+}
+
+.ui-cdp-modal .ui-cdp-modal-container {
+  width: 500px;
+  padding: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: none;
+  position: absolute;
+  z-index: 110;
+  left: 50%;
+  top: 50%;
+  margin-left: -250px;
+  margin-top: -245px;
+}
+
+.ui-cdp-modal .ui-cdp-modal-container .ui-cdp-modal-inner {
+  padding: 0 0 40px;
+}
+
+.ui-cdp-modal .ui-cdp-modal-container .ui-cdp-modal-inner a {
+  display: block;
+  height: 100%;
+}
+
+.ui-cdp-modal .ui-cdp-modal-container .ui-cdp-modal-inner img {
+  width: 100%;
+}
+
+.ui-cdp-modal .ui-cdp-modal-container .ui-cdp-modal-inner .ui-cdp-modal-buttons {
+  position: absolute;
+  padding: 0;
+  right: 0;
+  left: 0;
+  top: auto;
+  bottom: 0;
+  height: 50px;
+  background: #fff;
+  display: flex;
+}
+
+.ui-cdp-modal .ui-cdp-modal-container .ui-cdp-modal-inner .ui-cdp-modal-buttons button {
+  flex-grow: 1;
+  flex-basis: 0;
+  color: #333;
+  height: 100% !important;
+  position: relative;
+  font-size: 14px;
+  letter-spacing: -0.7px;
+}
+
+.ui-cdp-modal .ui-cdp-modal-container .ui-cdp-modal-inner .ui-cdp-modal-buttons button.ui-cdp-popup-close-button {
+  border-left: 1px solid #e8e8e8;
+}
+
+.ui-cdp-dimmed {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .5);
+}
+
+/* 배너 스타일 */
+.ui-cdp-banner {
+  height: 120px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.ui-cdp-banner .ui-cdp-banner-container {
+  width: 940px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.ui-cdp-banner .ui-cdp-banner-container img {
+  width: 100%;
+}
+
+.ui-cdp-banner .ui-cdp-banner-container a {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: #333;
+  display: inline-block;
+  padding: 0 20px;
+  height: 35px;
+  line-height: 35px;
+  color: #fff;
+  border-radius: 0 0 6px 6px;
+  font-size: 15px;
+  letter-spacing: -0.8px;
+}
+
+.ui-cdp-banner .ui-cdp-banner-container a:after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 10px;
+  margin-left: 6px;
+  background: url(https://dev.ktovisitkorea.com/resources/vendor/feedback/images/common/btn_feedback_banner.png);
+}
+
+.ui-cdp-banner .ui-cdp-banner-buttons {
+  position: absolute;
+  padding: 0 15px;
+  right: 0;
+  top: -30px;
+  display: flex;
+  align-items: center;
+  height: 30px;
+  background: rgba(0, 0, 0, .6);
+}
+
+.ui-cdp-banner .ui-cdp-banner-buttons button {
+  color: #fff;
+  font-size: 12px;
+  letter-spacing: -0.6px;
+}
+
+.ui-cdp-banner .ui-cdp-banner-buttons button.ui-cdp-popup-close-button {
+  margin-left: 20px;
+  text-indent: -9999px;
+  width: 10px;
+  height: 10px;
+  background: url(../images/common/btn_feedback_banner1.png);
+}
+
+@media screen and (max-width: 1023px) {
+  .ui-cdp-modal .ui-cdp-modal-container {
+    left: 15px !important;
+    right: 15px !important;
+    width: auto !important;
+    margin-left: 0 !important;
+  }
+
+  .ui-cdp-banner {
+    bottom: 40px;
+    height: 100%;
+    border-radius: 10px 10px 0 0;
+    background: rgba(0, 0, 0, .5) !important;
+  }
+
+  .ui-cdp-banner .ui-cdp-banner-container {
+    width: auto;
+    border-radius: 10px 10px 0 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+
+  .ui-cdp-banner .ui-cdp-banner-container a {
+    text-indent: -9999px;
+    background: none;
+    height: 100%;
+    padding: 0;
+    left: 0;
+  }
+
+  .ui-cdp-banner .ui-cdp-banner-buttons {
+    position: absolute;
+    padding: 0;
+    right: 0;
+    left: 0;
+    top: auto;
+    bottom: -40px;
+    height: 40px;
+    background: #fff;
+  }
+
+  .ui-cdp-banner .ui-cdp-banner-buttons button {
+    flex-grow: 1;
+    flex-basis: 0;
+    color: #333;
+    height: 100% !important;
+    position: relative;
+    font-size: 14px;
+    letter-spacing: -0.7px;
+  }
+
+  .ui-cdp-banner .ui-cdp-banner-buttons button.ui-cdp-popup-close-button {
+    margin-left: 0;
+    text-indent: 0;
+    width: 100%;
+    border-left: 1px solid #e8e8e8;
+  }
+
+  .ui-cdp-banner .ui-cdp-banner-container img {
+    width: 100%;
+  }
+
+  .ui-cdp-banner .ui-cdp-banner-container img.pc {
+    display: none;
+  }
+
+  .ui-cdp-banner .ui-cdp-banner-container img.mo {
+    display: block;
+  }
+}
