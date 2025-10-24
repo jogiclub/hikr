@@ -4,9 +4,16 @@ body{font-family: 'Spoqa Han Sans Neo', 'Spoqa Han Sans JP', sans-serif; font-si
 
 .mCSB_inside > .mCSB_container{margin-right: 0!important;}
 
-
 .slick-prev, .slick-next, .slick-dots{display: none!important;}
 
+
+
+
+/* 초기 로딩 시에만 Offcanvas 애니메이션 제거 */
+.offcanvas.no-transition{transition: none!important;}
+
+/* 슬라이드 깜빡임 방지 */
+.cover-slide .slick-slide {opacity: 1!important;transition: none!important;}
 
 .footer-ground{}
 .footer-ground dl{width: 20%;}
@@ -18,8 +25,7 @@ body{font-family: 'Spoqa Han Sans Neo', 'Spoqa Han Sans JP', sans-serif; font-si
 .footer-station dl dd{border-left: 5px solid #ccc; padding-left: 15px}
 
 @media screen and (max-width: 1200px) {
+    header, main, footer{padding-right: 0!important;}
     .footer-ground dl{width: 100%;}
     .footer-station dl{width: 100%;}
 }
-
-

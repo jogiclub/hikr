@@ -52,12 +52,12 @@
     <div class="row g-0">
         <div class="col-12 scrollable-container " data-simplebar style="height: 100vh; overflow-y: auto; ">
             <header class="d-flex justify-content-between align-content-center z-3" style="padding-right: 400px; position: absolute; left: 0; top:0; width: 100%">
-                <div class="d-flex flex-wrap justify-content-center py-5 mb-4">
+                <div class="d-flex flex-wrap justify-content-center py-5">
                     <a href="/" class="d-flex align-items-center ms-5 mb-md-0 me-md-auto">
                         <img src="/assets/img/header_logo_pc.svg" style="height: 20px">
                     </a>
                 </div>
-                <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasGnb" aria-controls="offcanvasGnb"><i class="bi bi-list fs-2"></i></button>
+                <button class="btn d-block d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasGnb" aria-controls="offcanvasGnb"><i class="bi bi-list fs-2 text-white"></i></button>
             </header>
             <main class="position-relative z-2" style="padding-right: 400px; ">
                 <div class="" style=" width: 100%; top: 0;">
@@ -69,7 +69,7 @@
                 </div>
             </main>
 
-            <footer class="" style="padding-right: 400px!important; ">
+            <footer class="" style="padding-right: 400px; ">
                 <div class="footer-ground bg-dark text-white px-5 py-2">
                     <h3 class="border-bottom pb-3">하이커 그라운드</h3>
                     <div class="d-flex flex-wrap justify-content-between pt-3">
@@ -160,12 +160,12 @@
     </div>
 </div>
 <div class="offcanvas offcanvas-end bg-primary" tabindex="-1" data-bs-scroll="true" data-bs-backdrop="false" id="offcanvasGnb" aria-labelledby="offcanvasGnbLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasGnbLabel">Offcanvas right</h5>
+    <div class="offcanvas-header d-flex d-xl-none">
+        <h5 class="offcanvas-title" id="offcanvasGnbLabel"></h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <div class="py-5">
+        <div class="py-3 py-xl-5">
             <ul class="list-unstyled ps-0 lh-lg">
                 <li class="mb-3 text-center">
                     <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed text-white fs-4 p-0 pb-2" data-bs-toggle="collapse" data-bs-target="#aboutus-collapse" aria-expanded="true">
