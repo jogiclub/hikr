@@ -39,25 +39,28 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" href="./assets/css/common.css">
+    <link rel="stylesheet" href="./assets/css/common.css" id="common-css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/spoqa-han-sans@3.3.0/css/SpoqaHanSansNeo.min.css">
     <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css"/>
 
 </head>
 <body>
 
-<div id="main" class="container-fluid px-0">
+<div class="container-fluid px-0">
     <div class="row g-0">
         <div class="col-12 scrollable-container " data-simplebar style="height: 100vh; overflow-y: auto; ">
-            <header class="d-flex justify-content-between align-content-center z-3" style="padding-right: 399px; position: absolute; left: 0; top:0; width: 100%">
+            <header class="d-flex justify-content-between align-content-center z-3" style="position: absolute; left: 0; top:0; width: 100%">
                 <div class="d-flex flex-wrap justify-content-center py-4 py-xl-5">
-                    <a href="/" class="d-flex align-items-center ms-3 ms-xl-5 mb-md-0 me-md-auto">
+                    <a href="/" class="logo-link d-flex align-items-center ms-3 ms-xl-5 mb-md-0 me-md-auto">
                         <img src="./assets/img/header_logo_pc.svg" style="height: 26px">
                     </a>
                 </div>
                 <button class="btn d-block d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasGnb" aria-controls="offcanvasGnb"><i class="bi bi-list fs-1 text-white"></i></button>
             </header>
-            <main class="position-relative z-2" style="padding-right: 399px; ">
+
+
+
+            <main id="main">
                 <div class="" style=" width: 100%; top: 0;">
                     <div class="cover-slide">
                         <div class="item"><img src="https://hikr.visitkorea.or.kr/assets/images/pc_1.jpg" style="object-fit: cover; width: 100%; height: 100%; "></div>
@@ -67,7 +70,108 @@
                 </div>
             </main>
 
-            <footer class="" style="padding-right: 399px; ">
+            <main id="introduce"  style="display: none;">
+                <div class="" style="width: 100%; top: 0;">
+                    <div class="p-5">
+                        <h1>소개</h1>
+                        <p>하이커 그라운드 소개 내용이 들어갑니다.</p>
+                    </div>
+                </div>
+            </main>
+
+            <main id="visit"  style="display: none;">
+                <div class="" style="width: 100%; top: 0;">
+                    <div class="p-5">
+                        <h1>How to Visit</h1>
+                        <p>방문 안내 내용이 들어갑니다.</p>
+                    </div>
+                </div>
+            </main>
+
+            <main id="special"  style="display: none;">
+                <div class="" style="width: 100%; top: 0;">
+                    <div class="p-5">
+                        <h1>기획전시</h1>
+                        <p>기획전시 내용이 들어갑니다.</p>
+                    </div>
+                </div>
+            </main>
+
+            <main id="program"  style="display: none;">
+                <div class="" style="width: 100%; top: 0;">
+                    <div class="p-5">
+                        <h1>프로그램</h1>
+                        <p>프로그램 내용이 들어갑니다.</p>
+                    </div>
+                </div>
+            </main>
+
+            <main id="event"  style="display: none;">
+                <div class="" style="width: 100%; top: 0;">
+                    <div class="p-5">
+                        <h1>이벤트</h1>
+                        <p>이벤트 내용이 들어갑니다.</p>
+                    </div>
+                </div>
+            </main>
+
+            <main id="vr1f"  style="display: none;">
+                <div class="" style="width: 100%; top: 0;">
+                    <div class="p-5">
+                        <h1>VR 둘러보기 - 1층</h1>
+                        <p>1층 VR 둘러보기 내용이 들어갑니다.</p>
+                    </div>
+                </div>
+            </main>
+
+            <main id="vr2f"  style="display: none;">
+                <div class="" style="width: 100%; top: 0;">
+                    <div class="p-5">
+                        <h1>VR 둘러보기 - 2층</h1>
+                        <p>2층 VR 둘러보기 내용이 들어갑니다.</p>
+                    </div>
+                </div>
+            </main>
+
+            <main id="vr5f"  style="display: none;">
+                <div class="" style="width: 100%; top: 0;">
+                    <div class="p-5">
+                        <h1>VR 둘러보기 - 5층</h1>
+                        <p>5층 VR 둘러보기 내용이 들어갑니다.</p>
+                    </div>
+                </div>
+            </main>
+
+            <main id="notice"  style="display: none;">
+                <div class="" style="width: 100%; top: 0;">
+                    <div class="p-5">
+                        <h1>공지사항</h1>
+                        <p>공지사항 내용이 들어갑니다.</p>
+                    </div>
+                </div>
+            </main>
+
+            <main id="qna"  style="display: none;">
+                <div class="" style="width: 100%; top: 0;">
+                    <div class="p-5">
+                        <h1>자주 묻는 질문</h1>
+                        <p>자주 묻는 질문 내용이 들어갑니다.</p>
+                    </div>
+                </div>
+            </main>
+
+            <main id="collaboration"  style="display: none;">
+                <div class="" style="width: 100%; top: 0;">
+                    <div class="p-5">
+                        <h1>대관 및 협업</h1>
+                        <p>대관 및 협업 내용이 들어갑니다.</p>
+                    </div>
+                </div>
+            </main>
+
+
+
+            <footer class="" style="">
                 <div class="footer-ground bg-dark text-white px-5 pt-5 pb-2">
                     <h3 class="border-bottom pb-3">하이커 그라운드</h3>
                     <div class="d-flex flex-wrap justify-content-between pt-3">
@@ -159,9 +263,7 @@
 </div>
 
 
-<div id="introduce" class="container-fluid px-0">
-test
-</div>
+
 
 <div class="offcanvas offcanvas-end bg-primary" tabindex="-1" data-bs-scroll="true" data-bs-backdrop="false" id="offcanvasGnb" aria-labelledby="offcanvasGnbLabel">
     <div class="offcanvas-header d-flex d-xl-none">
@@ -177,8 +279,8 @@ test
                     </button>
                     <div class="collapse show" id="aboutus-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="https://hikr.visitkorea.or.kr/about.php" class="text-white opacity-50 text-decoration-none fs-5">소개</a></li>
-                            <li><a href="https://hikr.visitkorea.or.kr/operate_guide.php" class="text-white opacity-50 text-decoration-none fs-5">How to Visit</a></li>
+                            <li><a href="#introduce" class="menu-link text-white opacity-50 text-decoration-none fs-5" data-page="introduce">소개</a></li>
+                            <li><a href="#visit" class="menu-link text-white opacity-50 text-decoration-none fs-5" data-page="visit">How to Visit</a></li>
                         </ul>
                     </div>
                 </li>
@@ -188,7 +290,7 @@ test
                     </button>
                     <div class="collapse show" id="display-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="https://hikr.visitkorea.or.kr/special_list.php" class="text-white opacity-50 text-decoration-none fs-5">기획전시</a></li>
+                            <li><a href="#special" class="menu-link text-white opacity-50 text-decoration-none fs-5" data-page="special">기획전시</a></li>
                         </ul>
                     </div>
                 </li>
@@ -198,8 +300,8 @@ test
                     </button>
                     <div class="collapse show" id="program-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="https://hikr.visitkorea.or.kr/regularprogram.php" class="text-white opacity-50 text-decoration-none fs-5">프로그램</a></li>
-                            <li><a href="https://hikr.visitkorea.or.kr/bbs/board.php?bo_table=event" class="text-white opacity-50 text-decoration-none fs-5">이벤트</a></li>
+                            <li><a href="#program" class="menu-link text-white opacity-50 text-decoration-none fs-5" data-page="program">프로그램</a></li>
+                            <li><a href="#event" class="menu-link text-white opacity-50 text-decoration-none fs-5" data-page="event">이벤트</a></li>
                         </ul>
                     </div>
                 </li>
@@ -209,9 +311,9 @@ test
                     </button>
                     <div class="collapse show" id="vr-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="https://rowilab-tour3.com/floor_1f.php" class="text-white opacity-50 text-decoration-none fs-5">1층</a></li>
-                            <li><a href="https://rowilab-tour3.com/floor_2f.php" class="text-white opacity-50 text-decoration-none fs-5">2층</a></li>
-                            <li><a href="https://rowilab-tour3.com/floor_5f.php" class="text-white opacity-50 text-decoration-none fs-5">5층</a></li>
+                            <li><a href="#vr1f" class="menu-link text-white opacity-50 text-decoration-none fs-5" data-page="vr1f">1층</a></li>
+                            <li><a href="#vr2f" class="menu-link text-white opacity-50 text-decoration-none fs-5" data-page="vr2f">2층</a></li>
+                            <li><a href="#vr5f" class="menu-link text-white opacity-50 text-decoration-none fs-5" data-page="vr5f">5층</a></li>
                         </ul>
                     </div>
                 </li>
@@ -221,9 +323,9 @@ test
                     </button>
                     <div class="collapse show" id="notice-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="https://hikr.visitkorea.or.kr/bbs/board.php?bo_table=notice_2nd" class="text-white opacity-50 text-decoration-none fs-5">공지사항</a></li>
-                            <li><a href="https://hikr.visitkorea.or.kr/qna.php" class="text-white opacity-50 text-decoration-none fs-5">자주 묻는 질문</a></li>
-                            <li><a href="https://hikr.visitkorea.or.kr/collaboration.php" class="text-white opacity-50 text-decoration-none fs-5">대관 및 협업</a></li>
+                            <li><a href="#notice" class="menu-link text-white opacity-50 text-decoration-none fs-5" data-page="notice">공지사항</a></li>
+                            <li><a href="#qna" class="menu-link text-white opacity-50 text-decoration-none fs-5" data-page="qna">자주 묻는 질문</a></li>
+                            <li><a href="#collaboration" class="menu-link text-white opacity-50 text-decoration-none fs-5" data-page="collaboration">대관 및 협업</a></li>
                         </ul>
                     </div>
                 </li>
@@ -234,27 +336,35 @@ test
 
 
 
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script src="./assets/js/common.js"></script>
+
 <script>
-/*    (function ($) {
-        $(window).on('load', function () {
-            $('#main-scroll').mCustomScrollbar({
-                theme: "dark",
-                scrollInertia: 300,
-                autoHideScrollbar: false,
-                axis: "y" // 세로 스크롤만
-            });
-        });
-    })(jQuery);*/
+    // 버전 파라미터 생성 함수
+    function getVersionParam() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hour = String(now.getHours()).padStart(2, '0');
+        const minute = String(now.getMinutes()).padStart(2, '0');
+        const second = String(now.getSeconds()).padStart(2, '0');
+        return year + month + day + hour + minute + second;
+    }
 
+    // CSS 파일에 버전 파라미터 추가
+    const cssLink = document.getElementById('common-css');
+    if (cssLink) {
+        const cssHref = cssLink.getAttribute('href');
+        cssLink.setAttribute('href', cssHref + '?v=' + getVersionParam());
+    }
 
-
-// $("#main-scroll").slimScroll({ height: "1500px" });
+    // JS 파일 동적 로드
+    const script = document.createElement('script');
+    script.src = './assets/js/common.js?v=' + getVersionParam();
+    document.body.appendChild(script);
 </script>
 
 </body>
