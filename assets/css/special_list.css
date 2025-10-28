@@ -1,0 +1,232 @@
+@charset "utf-8";
+*{
+    margin: 0;
+    padding: 0;
+}
+.pc{
+    display: block;
+}
+.pc.img_date_info{
+    height:35.60px;
+    width:auto;
+    position:absolute;
+    top:78px;
+    right:69px;
+
+}
+.mo{
+    display: none;
+}
+#sp_list #sub_banner{
+    background: url(https://hikr.visitkorea.or.kr/assets/images/special/sp_list_banner.jpg) no-repeat center center/cover;
+}
+#sp_list #sub_banner .menu_tt{
+    color: #e0d3f4;
+}
+#sp_list .container{
+    width: 1645px;
+    margin: 0 auto;
+    /*     padding: 105px 0; */
+}
+#sp_list .list{
+    width: 100%;
+    height: 727px;
+    padding: 64px 69px 37px;
+    position: relative;
+}
+.worlds_link{
+    margin-top: 48px;
+    background: url(https://hikr.visitkorea.or.kr/assets/images/special/worlds_list_bg.png) no-repeat center center/cover;
+}
+.deekay_link{
+    margin-top: 48px;
+    margin-bottom: 105px;
+    background: url(https://hikr.visitkorea.or.kr/assets/images/special/deekay_list_bg.png) no-repeat center center/cover;
+}
+.worlds_link .heading {
+    width: 1278px;
+}
+.deekay_link .heading {
+    width: 740px;
+}
+#sp_list .btn_list{
+    width: 176px;
+    height: 66px;
+    background: url(https://hikr.visitkorea.or.kr/assets/images/special/list_btn.png) no-repeat center center/cover;
+    position: absolute;
+    bottom: 37px;
+    right: 69px;
+    display: block;
+    transition: 0.5s all;
+    cursor: pointer;
+}
+#sp_list .btn_list:hover{
+    transform: scale(1.1);
+}
+.coolrain{
+    margin-top: 105px;
+    background: url(https://hikr.visitkorea.or.kr/assets/images/special/cool_bg.svg) no-repeat center center/cover;
+    
+}
+.coolrain .heading{
+    width: 700px;
+}
+.coolrain .pc.img_date_info{
+    height: 55.78px;
+    width: 26%;
+    position: absolute;
+    top: 78px;
+    right: 76px;
+}
+@media (max-width:1650px) {
+    #sp_list .container{
+        width: 90%;
+    }
+    .worlds_link .heading {
+        width: 90%;
+    }
+    .pc.img_date_info{
+        height:30.6px;
+    }
+}
+@media (max-width:1300px) {
+    #sp_list .list{
+        height:780px ;
+    }
+    .deekay_link .heading {
+        width: 50%;
+    }
+    .coolrain .heading{
+        width: 50%;
+    }
+    .pc.img_date_info{
+        height:25.6px;
+    }
+}
+@media (max-width:920px) {
+    .pc{
+        display: none;
+    }
+    .mo{
+        display: block;
+    }
+    #sp_list .list{
+        height: 990px;
+    }
+    #sp_list .container{
+        width: 100%;
+        padding: 0px 0 110px;
+    }
+    .worlds_link{
+
+        background: url(https://hikr.visitkorea.or.kr/assets/images/special/m_worlds_bg.jpg) no-repeat center center/cover;
+    }
+    .deekay_link{
+        margin-top: 48px;
+        background: url(https://hikr.visitkorea.or.kr/assets/images/special/m_deekay_bg.jpg) no-repeat center center/cover;
+    }
+    .coolrain{
+        margin-top: 105px;
+        background: url(https://hikr.visitkorea.or.kr/assets/images/special/cool_bg_mo.png) no-repeat center center/cover;
+
+    }
+    .worlds_link .heading {
+        width: 430px;
+        margin: 0 auto;
+    }
+    .worlds_link .date{
+        width: 350px;
+        position: absolute;
+        bottom: 37px;
+    }
+    .deekay_link .heading {
+        /* width: 100%; */
+        width: 48%;
+    }
+    .coolrain .heading {
+        width: 98%;
+        margin: 0 auto;
+    }
+    #sp_list #sub_banner .menu_tt{
+        font-size: 50px;
+    }
+}
+@media (max-width: 768px) {
+    .worlds_link .heading{
+        width: 370px;
+    }
+    .worlds_link .date{
+        width: 290px;
+    }
+}
+@media (max-width:527px) {
+    #sp_list .list{
+        padding: 45px;
+    }
+    #deekay_link_list{
+        padding: 40px 30px 20px 30px !important;
+    }
+    .worlds_link .heading {
+        width: 78%;
+    }
+    .worlds_link .date{
+        width: 40%;
+        bottom: 37px;
+        left: 48px;
+    }
+    #sp_list .btn_list{
+        right: 48px;
+    }
+    #sp_list .list{
+        height: 812px;
+    }
+}
+@media (max-width:500px) {
+    #sp_list .list {
+        height: 730px;
+    }
+    #sp_list #sub_banner {
+        padding: 99px 0 53px;
+    }
+    #sp_list .btn_list {
+        width: 136px;
+        height: 52px;
+    }
+}
+@media (max-width:450px) {
+    .worlds_link .date {
+        width: 48%;
+        bottom: 37px;
+        left: 35px;
+    }
+}
+@media (max-width:425px) {
+    #sp_list .list {
+        height: 630px;
+    }
+    .worlds_link .heading {
+        width: 75%;
+    }
+    #deekay_link_list{
+        padding: 40px 30px 20px 30px !important;
+    }
+}
+@media (max-width:375px) {
+    #sp_list .btn_list {
+        right: 32px;
+    }
+    .worlds_link .date{
+        left: 32px;
+    }
+}
+@media (max-width:320px) {
+    #sp_list .list {
+        height: 480px;
+    }
+    #sp_list .container{
+        padding: 28px 0 60px;
+    }
+    #sp_list .list{
+        margin-top: 28px;
+    }
+}
