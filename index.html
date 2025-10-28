@@ -51,6 +51,7 @@
     <link rel="stylesheet" href="./assets/css/regularprogram_v2.css">
     <link rel="stylesheet" href="./assets/css/special_list.css?v=1">
     <link rel="stylesheet" href="./assets/css/renewal.css?v=3">
+    <link rel="stylesheet" href="./assets/css/intro.css?v=3">
 
 
 </head>
@@ -59,6 +60,10 @@
 <div class="container-fluid px-0">
     <div class="row g-0">
         <div class="col-12 scrollable-container " data-simplebar style="height: 100vh; overflow-y: auto; ">
+
+
+
+
             <header class="d-flex justify-content-between align-content-center z-3" style="position: absolute; left: 0; top:0; width: 100%">
                 <div class="d-flex flex-wrap justify-content-center py-4 py-xl-5">
                     <a href="/" class="logo-link d-flex align-items-center ms-3 ms-xl-5 mb-md-0 me-md-auto">
@@ -68,6 +73,35 @@
                 <button class="btn d-block d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasGnb" aria-controls="offcanvasGnb"><i class="bi bi-list fs-1 text-white"></i></button>
             </header>
 
+
+            <main id="intro">
+                <section class="intro">
+                    <div class="intro__grid">
+                        <div class="intro__grid--item item--left" style="width: 60%; clip-path: polygon(0px 0px, 100% 0px, 85% 100%, 0px 100%); z-index: 1;">
+                            <div class="content">
+                                <div class="logo logo--ground">
+                                    <!-- <img src="https://hikr.visitkorea.or.kr/assets/images/intro_hikr_ground.svg" alt="HiKR GROUND"> -->
+                                </div>
+                                <div class="address">
+                                    <img src="https://hikr.visitkorea.or.kr/assets/images/intro_ground_address.svg" alt="서울 중구 청계천로 40">
+                                </div>
+                                <button class="enter__button" onclick="location.href='https://hikr.visitkorea.or.kr/'">ENTER</button>
+                            </div>
+                        </div>
+                        <div class="intro__grid--item item--right" style="width: 60%; clip-path: polygon(15% 0px, 100% 0px, 100% 100%, 0% 100%); z-index: 1; right: 0px;">
+                            <div class="content">
+                                <div class="logo logo--station">
+                                    <!-- <img src="https://hikr.visitkorea.or.kr/assets/images/intro_hikr_station.svg" alt="HiKR STATION"> -->
+                                </div>
+                                <div class="address">
+                                    <img src="https://hikr.visitkorea.or.kr/assets/images/intro_station_address.svg" alt="인천 중구 공항로 271">
+                                </div>
+                                <button class="enter__button" onclick="location.href='https://hikr.visitkorea.or.kr/station/'">ENTER</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
 
             <main id="main">
                 <div class="" style=" width: 100%; top: 0;">
@@ -1366,6 +1400,107 @@
 
     // 페이지가 로드되면 인스타그램 이벤트 게시물을 불러옵니다.
     loadInstagramEvents();
+
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const leftSection = document.querySelector('.item--left');
+        const rightSection = document.querySelector('.item--right');
+
+        let isLeftHovered = false;
+        let isRightHovered = false;
+
+        // 화면 크기 체크 함수
+        function isMobile() {
+            return window.innerWidth <= 1000;
+        }
+
+        // 왼쪽 섹션 호버 이벤트
+        leftSection.addEventListener('mouseenter', function() {
+            if (isMobile()) return;
+            isLeftHovered = true;
+            updateLayout();
+        });
+
+        leftSection.addEventListener('mouseleave', function() {
+            if (isMobile()) return;
+            isLeftHovered = false;
+            updateLayout();
+        });
+
+        // 오른쪽 섹션 호버 이벤트
+        rightSection.addEventListener('mouseenter', function() {
+            if (isMobile()) return;
+            isRightHovered = true;
+            updateLayout();
+        });
+
+        rightSection.addEventListener('mouseleave', function() {
+            if (isMobile()) return;
+            isRightHovered = false;
+            updateLayout();
+        });
+
+        function updateLayout() {
+            if (isMobile()) {
+                // 모바일에서는 모든 스타일 제거
+                leftSection.style.removeProperty('width');
+                leftSection.style.removeProperty('clip-path');
+                leftSection.style.removeProperty('z-index');
+
+                rightSection.style.removeProperty('width');
+                rightSection.style.removeProperty('clip-path');
+                rightSection.style.removeProperty('z-index');
+                rightSection.style.removeProperty('right');
+                return;
+            }
+
+            if (isLeftHovered) {
+                // 왼쪽 섹션 확장
+                leftSection.style.width = '85%';
+                leftSection.style.clipPath = 'polygon(0 0, 100% 0, 90% 100%, 0 100%)';
+                leftSection.style.zIndex = '5';
+
+                // 오른쪽 섹션 축소
+                rightSection.style.width = '40%';
+                rightSection.style.right = '0';
+                rightSection.style.clipPath = 'polygon(0% 0, 100% 0, 100% 100%, 0% 100%)';
+                rightSection.style.zIndex = '1';
+
+            } else if (isRightHovered) {
+                // 오른쪽 섹션 확장
+                rightSection.style.width = '85%';
+                rightSection.style.right = '0';
+                rightSection.style.clipPath = 'polygon(10% 0, 100% 0, 100% 100%, 0% 100%)';
+                rightSection.style.zIndex = '5';
+
+                // 왼쪽 섹션 축소
+                leftSection.style.width = '40%';
+                leftSection.style.clipPath = 'polygon(0 0, 100% 0, 85% 100%, 0 100%)';
+                leftSection.style.zIndex = '1';
+
+            } else {
+                // 기본 상태로 복원 - 겹치도록 설정
+                leftSection.style.width = '60%';
+                leftSection.style.clipPath = 'polygon(0 0, 100% 0, 85% 100%, 0 100%)';
+                leftSection.style.zIndex = '1';
+
+                rightSection.style.width = '60%';
+                rightSection.style.clipPath = 'polygon(15% 0, 100% 0, 100% 100%, 0% 100%)';
+                rightSection.style.zIndex = '1';
+            }
+        }
+
+        // 초기 상태 설정
+        updateLayout();
+
+        // 화면 크기 변경 시 이벤트
+        window.addEventListener('resize', function() {
+            updateLayout();
+        });
+    });
+
 </script>
 
 </body>
