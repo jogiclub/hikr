@@ -272,7 +272,7 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url(../img/collaboration_hero.png);
+    background-image: url(../img/collaboration_hero.png?1);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -383,7 +383,7 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
     display: block;
     width: 33px;
     height: 33px;
-    background-image: url(../img/download_icon.png);
+    background-image: url(../img/download_icon.png?2);
     background-position: center;
     background-size: 100%;
     background-repeat: no-repeat;
@@ -398,13 +398,13 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
 #sp_list .localstore {
     position: relative;
     aspect-ratio: 1/0.4428;
-    background-image: url(../img/local_store_bg.png);
+    background-image: url(../img/local_store_bg.png?1);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 #sp_list .localstore[lang=en] {
-    background-image: url(../img/en/local_store_bg.png);
+    background-image: url(../img/en/local_store_bg.png?1);
 }
 #sp_list .btn_list[lang=en] {
     background-image: url(../img/en/list_btn.png);
@@ -413,7 +413,7 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
 #sp_list .nomard_shop {
     position: relative;
     aspect-ratio: 1/0.4428;
-    background-image: url(../img/nomard_shop_pc.png);
+    background-image: url(../img/nomard_shop_pc.png?1);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -421,13 +421,13 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
 
 
 #sp_list .nomard_shop[lang=en] {
-    background-image: url(../img/nomard_shop_pc.png);
+    background-image: url(../img/nomard_shop_pc.png?1);
 }
 
 #sp_list .custom_shop {
     position: relative;
     aspect-ratio: 1/0.4428;
-    background-image: url(../img/custom_shop_pc.png);
+    background-image: url(../img/custom_shop_pc.png?1);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -436,7 +436,7 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
 
 
 #sp_list .custom_shop[lang=en] {
-    background-image: url(../img/custom_shop_pc.png);
+    background-image: url(../img/custom_shop_pc.png?1);
 }
 
 
@@ -636,13 +636,13 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
 
 .qna__header {
     aspect-ratio: 1/0.4292527822;
-    background-image: url(../img/qna_00.png);
+    background-image: url(../img/qna_00.png?1);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 .qna__header[lang=en] {
-    background-image: url(../img/en/qna_00.png);
+    background-image: url(../img/en/qna_00.png?1);
 }
 
 .page__station .qna__header {
@@ -671,14 +671,14 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
 @media (min-width: 1024px) {
     .page__station .qna__header{
         max-width: 100%;
-        background-image: url(../img/qna_00_pc.png);
+        background-image: url(../img/qna_00_pc.png?1);
         aspect-ratio: 2516/1080;
         background-size: cover;
         background-position: center;
     }
     .page__station .qna__header[lang=en] {
         max-width: 100%;
-        background-image: url(../img/en/qna_00_pc.png);
+        background-image: url(../img/en/qna_00_pc.png?1);
         aspect-ratio: 2516/1080;
         background-size: cover;
         background-position: center;
@@ -1195,7 +1195,7 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
         margin-bottom: 43px;
     }
     .collabo__hero {
-        background-image: url(../img/collaboration_hero_m.png);
+        background-image: url(../img/collaboration_hero_m.png?1);
     }
     .collabo__hero h2 {
         font-size: 30px;
@@ -1257,13 +1257,13 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
     .qna__header {
 
         aspect-ratio: 1;
-        background-image: url(../img/qna_00_m.jpg);
+        background-image: url(../img/qna_00_m.jpg?1);
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
     }
     .qna__header[lang=en] {
-        background-image: url(../img/en/qna_00_m.jpg);
+        background-image: url(../img/en/qna_00_m.jpg?1);
     }
     .qna__content {
         padding-top: 20px;

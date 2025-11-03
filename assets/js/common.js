@@ -388,7 +388,7 @@ function initAOS() {
             AOS.refresh();
         });
 
-        console.log('AOS와 SimpleBar 스크롤 연동 완료');
+        // console.log('AOS와 SimpleBar 스크롤 연동 완료');
     } else {
         console.warn('SimpleBar 스크롤 컨테이너를 찾을 수 없습니다');
     }
