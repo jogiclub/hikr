@@ -1,0 +1,76 @@
+@font-face {
+    font-family: 'DNFBitBitv2';
+    font-style: normal;
+    font-weight: 400;
+    src: url('//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf') format('opentype');
+}
+
+.floor-text {
+    font-family: 'DNFBitBitv2', sans-serif;
+    font-size: 45px;
+    color: #773dbd;
+    display: inline-block;
+    padding: 5px 10px 5px 0;
+}
+
+/* 예시 사용 */
+.floor-text-example {
+    font-family: 'DNFBitBitv2', sans-serif;
+    font-size: 32px;
+    color: #FF6B6B;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.top_logo {
+    width: 50%;
+    max-width: 380px;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    margin-top: 60px;
+}
+
+.about_2_logo.h {
+    max-width: 100%;
+}
+
+.stationinner {
+    max-width: 1200px !important;
+}
+
+#about_2 .statationleft {
+    padding: 93px 0 0 0;
+}
+
+#about_2 .statationleft .map_station {
+    max-width: 549px;
+}
+
+.img_floor_map.map_station {
+    display: block;
+    margin: 0 auto;
+}
+
+#about_1 {
+    background: center / cover url(../img/station_info_top.png);
+}
+
+.pc-only {
+    display: none;
+}
+
+.mo-only2 {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .pc-only {
+        display: inline;
+    }
+}
+
+@media (max-width: 767px) {
+    .mo-only2 {
+        display: inline;
+    }
+}

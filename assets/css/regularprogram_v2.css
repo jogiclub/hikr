@@ -167,13 +167,13 @@
 
 .v2-cards-next {
     left: auto !important;
-    right: 10% !important;
+    right: -10% !important;
     background-image: url(https://hikr.visitkorea.or.kr/assets/images/program/top/regular_arrow_next.svg) !important;
 }
 
 .v2-cards-prev {
     right: auto !important;
-    left: 10% !important;
+    left: -10% !important;
     background-image: url(https://hikr.visitkorea.or.kr/assets/images/program/top/regular_arrow_prev.svg) !important;
 }
 

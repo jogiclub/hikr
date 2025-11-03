@@ -105,13 +105,13 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
 .universe__hero {
     margin-top: 108px;
     aspect-ratio: 1/0.51;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/universe/universe_hero_pc.png);
+    background-image: url(../img/universe_hero_pc.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 .universe__hero.en {
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/universe/en/universe_hero_pc.png);
+    background-image: url(../img/en/universe_hero_pc.png);
 }
 
 .universe__about {
@@ -167,7 +167,7 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
     padding-top: 154px;
     padding-bottom: 180px;
     overflow: hidden;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/universe/universe_sec3_bg_pc.png);
+    background-image: url(../img/universe_sec3_bg_pc.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -260,21 +260,19 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
 .universe__member .swiper-button-next {
     left: auto;
     right: 13.22%;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/universe/swiper_next.svg);
+    background-image: url(../img/swiper_next.svg);
 }
 .universe__member .swiper-button-prev {
     left: 13.22%;
     right: auto;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/universe/swiper_prev.svg);
+    background-image: url(../img/swiper_prev.svg);
 }
 
 .collabo__hero {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 443px;
-    margin-top: 108px;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/collaboration/collaboration_hero.png);
+    background-image: url(../img/collaboration_hero.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -385,7 +383,7 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
     display: block;
     width: 33px;
     height: 33px;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/collaboration/download_icon.png);
+    background-image: url(../img/download_icon.png);
     background-position: center;
     background-size: 100%;
     background-repeat: no-repeat;
@@ -400,22 +398,22 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
 #sp_list .localstore {
     position: relative;
     aspect-ratio: 1/0.4428;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/special/local_store_bg.png);
+    background-image: url(../img/local_store_bg.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 #sp_list .localstore[lang=en] {
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/special/en/local_store_bg.png);
+    background-image: url(../img/en/local_store_bg.png);
 }
 #sp_list .btn_list[lang=en] {
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/special/en/list_btn.png);
+    background-image: url(../img/en/list_btn.png);
 }
 
 #sp_list .nomard_shop {
     position: relative;
     aspect-ratio: 1/0.4428;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/nomard_shop/nomard_shop_pc.png);
+    background-image: url(../img/nomard_shop_pc.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -423,13 +421,13 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
 
 
 #sp_list .nomard_shop[lang=en] {
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/nomard_shop/nomard_shop_pc.png);
+    background-image: url(../img/nomard_shop_pc.png);
 }
 
 #sp_list .custom_shop {
     position: relative;
     aspect-ratio: 1/0.4428;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/custom_shop/custom_shop_pc.png);
+    background-image: url(../img/custom_shop_pc.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -438,7 +436,7 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
 
 
 #sp_list .custom_shop[lang=en] {
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/custom_shop/custom_shop_pc.png);
+    background-image: url(../img/custom_shop_pc.png);
 }
 
 
@@ -447,24 +445,24 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
     #sp_list .nomard_shop {
         position: relative;
         aspect-ratio: 1/1.38;
-        background-image: url(https://hikr.visitkorea.or.kr/assets/images/nomard_shop/nomard_shop_mo.png);
+        background-image: url(../img/nomard_shop_mo.png);
         background-size: contain;
         height:auto !important;
     }
     #sp_list .nomard_shop a{bottom:52px;}
     #sp_list .nomard_shop[lang=en] {
-        background-image: url(https://hikr.visitkorea.or.kr/assets/images/nomard_shop/nomard_1-1_m_en.png);
+        background-image: url(../img/nomard_1-1_m_en.png);
     }
     #sp_list .custom_shop {
         position: relative;
         aspect-ratio: 1/1.38;
-        background-image: url(https://hikr.visitkorea.or.kr/assets/images/custom_shop/custom_shop_mo.png);
+        background-image: url(../img/custom_shop_mo.png);
         background-size: contain;
         height:auto !important;
     }
     #sp_list .custom_shop a{bottom:88px;}
     #sp_list .custom_shop[lang=en] {
-        background-image: url(https://hikr.visitkorea.or.kr/assets/images/custom_shop/custom_shop_mo.png);
+        background-image: url(../img/custom_shop_mo.png);
     }
 }
 
@@ -509,7 +507,7 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
     width: 100%;
     padding-top: 100px;
     padding-bottom: 60px;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/special/special_introduce_bg.png);
+    background-image: url(../img/special_introduce_bg.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -577,12 +575,12 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
 #sp_localstore .store__theme .swiper-button-next {
     left: auto;
     right: 25.83%;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/special/swiper_next.svg);
+    background-image: url(../img/swiper_next.svg);
 }
 #sp_localstore .store__theme .swiper-button-prev {
     left: 25.83%;
     right: auto;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/special/swiper_prev.svg);
+    background-image: url(../img/swiper_prev.svg);
 }
 #sp_localstore .store__theme .move__button {
     margin-top: 140px;
@@ -616,12 +614,12 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
 #sp_localstore .store__slides .swiper-button-next {
     left: auto;
     right: 10%;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/special/swiper_next.svg);
+    background-image: url(../img/swiper_next.svg);
 }
 #sp_localstore .store__slides .swiper-button-prev {
     left: 10%;
     right: auto;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/special/swiper_prev.svg);
+    background-image: url(../img/swiper_prev.svg);
 }
 #sp_localstore .store__guidemap {
     padding-top: 145px;
@@ -637,15 +635,14 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
 }
 
 .qna__header {
-    margin-top: 108px;
     aspect-ratio: 1/0.4292527822;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/notice/qna_00.png);
+    background-image: url(../img/qna_00.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 .qna__header[lang=en] {
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/notice/en/qna_00.png);
+    background-image: url(../img/en/qna_00.png);
 }
 
 .page__station .qna__header {
@@ -653,7 +650,7 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
     margin-left: auto;
     margin-right: auto;
     aspect-ratio: 1/1;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/station/notice/qna_00.png);
+    background-image: url(../img/qna_00.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -665,7 +662,7 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
     margin-left: auto;
     margin-right: auto;
     aspect-ratio: 1/1;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/station/notice/qna_00.png);
+    background-image: url(../img/qna_00.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -674,14 +671,14 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
 @media (min-width: 1024px) {
     .page__station .qna__header{
         max-width: 100%;
-        background-image: url(https://hikr.visitkorea.or.kr/assets/images/station/notice/qna_00_pc.png);
+        background-image: url(../img/qna_00_pc.png);
         aspect-ratio: 2516/1080;
         background-size: cover;
         background-position: center;
     }
     .page__station .qna__header[lang=en] {
         max-width: 100%;
-        background-image: url(https://hikr.visitkorea.or.kr/assets/images/station/notice/en/qna_00_pc.png);
+        background-image: url(../img/en/qna_00_pc.png);
         aspect-ratio: 2516/1080;
         background-size: cover;
         background-position: center;
@@ -882,12 +879,12 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
 #regular_program .program__about .swiper-button-next {
     left: auto;
     right: 10%;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/universe/swiper_next.svg);
+    background-image: url(../img/swiper_next.svg);
 }
 #regular_program .program__about .swiper-button-prev {
     left: 10%;
     right: auto;
-    background-image: url(https://hikr.visitkorea.or.kr/assets/images/universe/swiper_prev.svg);
+    background-image: url(../img/swiper_prev.svg);
 }
 #regular_program .program__timetable {
     padding-top: 145px;
@@ -1000,10 +997,10 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
     .universe__hero {
         margin-top: 50px;
         aspect-ratio: 1/1.58;
-        background-image: url(https://hikr.visitkorea.or.kr/assets/images/universe/universe_hero_m.png);
+        background-image: url(../img/universe_hero_m.png);
     }
     .universe__hero.en {
-        background-image: url(https://hikr.visitkorea.or.kr/assets/images/universe/en/universe_hero_m.png);
+        background-image: url(../img/en/universe_hero_m.png);
     }
     .universe__about {
         padding-top: 80px;
@@ -1198,9 +1195,7 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
         margin-bottom: 43px;
     }
     .collabo__hero {
-        height: 233px;
-        margin-top: 50px;
-        background-image: url(https://hikr.visitkorea.or.kr/assets/images/collaboration/collaboration_hero_m.png);
+        background-image: url(../img/collaboration_hero_m.png);
     }
     .collabo__hero h2 {
         font-size: 30px;
@@ -1260,15 +1255,15 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
         font-size: 16px;
     }
     .qna__header {
-        margin-top: 50px;
+
         aspect-ratio: 1;
-        background-image: url(https://hikr.visitkorea.or.kr/assets/images/notice/qna_00_m.jpg);
+        background-image: url(../img/qna_00_m.jpg);
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
     }
     .qna__header[lang=en] {
-        background-image: url(https://hikr.visitkorea.or.kr/assets/images/notice/en/qna_00_m.jpg);
+        background-image: url(../img/en/qna_00_m.jpg);
     }
     .qna__content {
         padding-top: 20px;
@@ -1425,10 +1420,10 @@ body[lang=en] .pc_menu .gnb ul.depth_2 li a {
     #sp_list .localstore {
         position: relative;
         aspect-ratio: 1/1.38;
-        background-image: url(https://hikr.visitkorea.or.kr/assets/images/special/local_store_bg_m.png);
+        background-image: url(../img/local_store_bg_m.png);
     }
     #sp_list .localstore[lang=en] {
-        background-image: url(https://hikr.visitkorea.or.kr/assets/images/special/en/local_store_bg_m.png);
+        background-image: url(../img/en/local_store_bg_m.png);
     }
     #sp_localstore .store__theme .theme__swiper .swiper-slide figure img {
         max-width: 223px;
