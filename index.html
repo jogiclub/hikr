@@ -63,7 +63,8 @@
                 './assets/css/renewal.css',
                 './assets/css/intro.css',
                 './assets/css/about.css',
-                './assets/css/board.css'
+                './assets/css/board.css',
+                './assets/css/about_v2.css'
             ];
 
             cssFiles.forEach(function(file) {
@@ -78,6 +79,13 @@
 </head>
 <body>
 
+<!-- 로딩 스피너 -->
+<div id="pageLoader" class="page-loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">로딩 중...</span>
+    </div>
+</div>
+
 <div class="container-fluid px-0" id="wrapper">
     <div class="row g-0">
         <div class="col-12 scrollable-container " data-simplebar style="height: 100vh; overflow-y: auto; ">
@@ -87,9 +95,12 @@
 
             <header class="header">
                 <div class="logo">
-                    <a href="/" class="logo-link d-flex align-items-center mb-md-0 me-md-auto">
-                        <img src="./assets/img/header_logo_pc.svg" style="height: 26px;display: none" class="logo-ground">
-                        <img src="./assets/img/header_logo.png" style="height: 26px; display: none" class="logo-station">
+                    <a href="./index.html#main" class="logo-link  mb-md-0 me-md-auto logo-ground" style="display: none">
+                        <img src="./assets/img/header_logo_pc.svg" style="height: 26px;">
+
+                    </a>
+                    <a href="./index.html#main_station" class="logo-link  mb-md-0 me-md-auto logo-station" style="display: none">
+                        <img src="./assets/img/header_logo.png" style="height: 26px;">
                     </a>
                 </div>
                 <button class="d-inline-block d-xl-none btn btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasGnb" aria-controls="offcanvasGnb">메뉴</button>
@@ -107,7 +118,7 @@
                                 <div class="address">
                                     <img src="./assets/img/intro_ground_address.svg" alt="서울 중구 청계천로 40">
                                 </div>
-                                <button class="enter__button" onclick="location.href='./#main'">ENTER</button>
+                                <button class="enter__button" onclick="location.href='./index.html#main'">ENTER</button>
                             </div>
                         </div>
                         <div class="intro__grid--item item--right" style="width: 60%; clip-path: polygon(15% 0px, 100% 0px, 100% 100%, 0% 100%); z-index: 1; right: 0px;">
@@ -118,7 +129,7 @@
                                 <div class="address">
                                     <img src="./assets/img/intro_station_address.svg" alt="인천 중구 공항로 271">
                                 </div>
-                                <button class="enter__button" onclick="location.href='./#main_station'">ENTER</button>
+                                <button class="enter__button" onclick="location.href='./index.html#main_station'">ENTER</button>
                             </div>
                         </div>
                     </div>
@@ -138,6 +149,8 @@
                         <div class="item"><img src="./assets/img/pc_1.jpg" style="object-fit: cover; width: 100%; height: 100%; "></div>
                         <div class="item"><img src="./assets/img/pc_2.jpg" style="object-fit: cover; width: 100%; height: 100%; "></div>
                         <div class="item"><img src="./assets/img/pc_3.jpg" style="object-fit: cover; width: 100%; height: 100%; "></div>
+                        <div class="item"><img src="./assets/img/pc_4.jpg" style="object-fit: cover; width: 100%; height: 100%; "></div>
+                        <div class="item"><img src="./assets/img/pc_5.jpg" style="object-fit: cover; width: 100%; height: 100%; "></div>
                     </div>
                 </div>
             </main>
@@ -350,7 +363,7 @@
                     </div>
                 </div>
                 <div class="about__leaflet about__leaflet--kr">
-                    <a href="https://hikr.visitkorea.or.kr/download_leaflet.php?fname=kr_leaflet.jpg">
+                    <a id="downloadLink" href="./assets/img/kr_leaflet.jpg?1" download="kr_leaflet.jpg">
                         <img class="d-none d-xl-block" src="./assets/img/leaflet_button_kr.png" alt="한글 리플렛 다운로드">
                         <img class="d-xl-none d-block" src="./assets/img/leaflet_button_kr_m.png" alt="한글 리플렛 다운로드">
                     </a>
@@ -361,10 +374,10 @@
                 <div class="subpage_wrapper">
                     <div id="og_1">
                         <div class="img">
-                            <img src="./assets/img/operate_guide_1_img.png">
+                            <img src="./assets/img/operate_guide_1_img.png?2">
                         </div>
                     </div>
-                    <div id="og_2">
+                    <div id="og_2" class="en">
                         <div class="inner">
                             <div class="title aos-init" data-aos="fade-up">오시는 길</div>
                             <div class="map">
@@ -407,7 +420,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="og_3">
+                    <div id="og_3" class="en">
                         <div class="inner aos-init" data-aos="fade-up">
                             <div class="left">
                                 <div>
@@ -439,7 +452,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="og_4">
+                    <div id="og_4" class="en">
                         <div class="inner aos-init" data-aos="fade-up">
                             <span class="icon_eyes"></span>
                             <div class="title">하이커 정기도슨트</div>
@@ -462,7 +475,7 @@
 
 
                     <div id="sub_banner" class="sub-cover">
-                        <h3 class="menu_tt aos-init aos-animate" data-aos="fade" data-aos-duration="2000">기획 전시</h3>
+                        <h2 class="menu_tt aos-init aos-animate" data-aos="fade" data-aos-duration="2000">기획 전시</h2>
                         <p class="menu_desc aos-init aos-animate" data-aos="fade-up" data-aos-duration="2000"></p>
                     </div>
 
@@ -640,8 +653,8 @@
             </main>
 
             <main id="event" style="display: none;">
-                <div class="d-flex justify-content-center align-items-center" style="width: 100%; height: 400px; background: url('https://hikr.visitkorea.or.kr/theme/basic/img/sub/sub_banner_ev.png') center top/cover">
-                    <h1 class="text-white">이벤트</h1>
+                <div class="d-flex justify-content-center align-items-center" style="width: 100%; height: 400px; background: url('./assets/img/sub_banner_ev.png') center top/cover">
+                    <h2 class="text-white">이벤트</h2>
                 </div>
                 <div class="container my-5">
                     <div id="event-list" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"></div>
@@ -649,9 +662,9 @@
             </main>
 
             <main id="notice" style="display: none;">
-                <div class="d-flex justify-content-center align-items-center sub-cover" style="width: 100%; background: url('https://hikr.visitkorea.or.kr/theme/basic/img/sub/sub_banner_notice.png') center top/cover">
+                <div class="d-flex justify-content-center align-items-center sub-cover" style="width: 100%; background: url('./assets/img/sub_banner_notice.png') center top/cover">
 
-                    <h1 class="text-white">공지사항</h1>
+                    <h2 class="text-white">공지사항</h2>
 
                 </div>
                 <!--
@@ -1060,7 +1073,7 @@
                     <!-- .collabo__overview -->
                     <section class="collabo__overview">
                         <div class="max-w-[1480px] mx-auto px-[20px]">
-                            <h3>하이커 그라운드 시설 · 촬영<br class="lg:hidden">대관 및 협업 안내</h3>
+                            <h3>하이커 그라운드 시설 · 촬영<br class="d-lg-none">대관 및 협업 안내</h3>
                             <div style="max-width:1080px; margin:0 auto">
                                 <div class="row">
                                 <div class="col-12 col-xl-3 overview__item">
@@ -1121,9 +1134,15 @@
                             </div>
 
                             <div class="buttons">
-                                <a href="https://hikr.visitkorea.or.kr/download.php?fname=rental_infomation.zip&amp;display_name=대관안내자료.zip">대관 안내자료</a>
-                                <a href="https://hikr.visitkorea.or.kr/download.php?fname=filming_application.zip&amp;display_name=%EC%B4%AC%EC%98%81+%EC%8B%A0%EC%B2%AD%EC%84%9C.zip">촬영 신청서</a>
-                                <a href="https://hikr.visitkorea.or.kr/download.php?fname=shootingreference.zip&amp;display_name=촬영참고자료.zip">촬영 참고자료</a>
+                                <a id="downloadLink1" href="./assets/download/대관안내자료.zip" download="대관안내자료.zip">
+                                    대관 안내자료
+                                </a>
+                                <a id="downloadLink2" href="./assets/download/촬영 신청서.zip" download="신청서.zip">
+                                    촬영 신청서
+                                </a>
+                                <a id="downloadLink3" href="./assets/download/촬영참고자료.zip" download="촬영참고자료.zip">
+                                    촬영 참고자료
+                                </a>
                             </div>
                         </div>
                     </section>
@@ -1360,7 +1379,7 @@
                     </div>
                 </div>
                 <div class="about__leaflet about__leaflet--kr">
-                    <a href="https://hikr.visitkorea.or.kr/download_leaflet.php?fname=kr_leaflet_station.pdf">
+                    <a id="downloadLink5" href="./assets/download/kr_leaflet_station.pdf" download="kr_leaflet_station.pdf">
                         <img class="d-none d-xl-block" src="./assets/img/leaflet_button_kr.png" alt="한글 리플렛 다운로드">
                         <img class="d-xl-none d-block" src="./assets/img/leaflet_button_kr_m.png" alt="한글 리플렛 다운로드">
                     </a>
@@ -1504,7 +1523,7 @@
 
             <main id="station_event" style="display: none">
                 <div id="sub_banner" class="sub-cover">
-                    <h3 class="menu_tt aos-init aos-animate" data-aos="fade" data-aos-duration="2000">EVENT</h3>
+                    <h2 class="menu_tt aos-init aos-animate" data-aos="fade" data-aos-duration="2000">EVENT</h2>
                     <p class="menu_desc aos-init aos-animate" data-aos="fade-up" data-aos-duration="2000"></p>
                 </div>
                 <div class="inner py-3">
@@ -1530,7 +1549,16 @@
             </main>
 
             <main id="station_notice" style="display: none">
-
+                <div id="sub_banner" class="sub-cover">
+                    <h2 class="menu_tt aos-init aos-animate" data-aos="fade" data-aos-duration="2000">NOTICE</h2>
+                    <p class="menu_desc aos-init aos-animate" data-aos="fade-up" data-aos-duration="2000"></p>
+                </div>
+                <div class="inner py-3">
+                    <ul class="row">
+                        <li class="col-12 col-xl-6">
+                        </li>
+                    </ul>
+                </div>
             </main>
 
             <main id="station_qna" style="display: none">

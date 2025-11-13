@@ -52,7 +52,7 @@
 }
 
 #about_1 {
-    background: center / cover url(../img/station_info_top.png);
+    /*background: center / cover url(../img/station_info_top.png);*/
 }
 
 .pc-only {

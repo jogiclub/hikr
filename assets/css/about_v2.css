@@ -1,0 +1,46 @@
+/* ===================================
+   About V2 Page Styles
+   하이커 그라운드 소개 페이지 스타일
+=================================== */
+
+#about_3FirstImg{
+    float: left;
+    width: 100%;
+}
+
+.floor_3FIMG{
+    margin-top: 20px;
+}
+
+.floor_3centent{
+    margin-bottom: 60px;;
+}
+
+* {
+    word-break: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+*:lang(ko) {
+    word-break: keep-all;
+}
+
+.onlypcdisplay {
+    display: none;
+}
+
+.onlymodisplay {
+    display: block;
+}
+
+/* 화면이 768px 이상이면 (PC) */
+@media screen and (min-width: 768px) {
+    .onlypcdisplay {
+        display: block;
+    }
+
+    .onlymodisplay {
+        display: none;
+    }
+}

@@ -9,10 +9,205 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="./common.css">
 
+    <style>
+        :root {
+            --instagram-pink: #e1306c;
+            --instagram-purple: #833ab4;
+            --instagram-orange: #fd1d1d;
+            --instagram-yellow: #fcaf45;
+        }
 
+        body {
+            background: linear-gradient(to bottom, #fafafa 0%, #e9ecef 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
 
+        .navbar {
+            background: linear-gradient(45deg, var(--instagram-purple), var(--instagram-pink), var(--instagram-orange));
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .feed-container {
+            max-width: 935px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+
+        .control-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-card {
+            background: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            border-bottom: 1px solid #efefef;
+        }
+
+        .post-header img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+
+        .post-header .username {
+            font-weight: 600;
+            color: #262626;
+            text-decoration: none;
+            flex-grow: 1;
+        }
+
+        .post-header .username:hover {
+            text-decoration: underline;
+        }
+
+        .post-header .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .post-header .btn-sm {
+            padding: 4px 8px;
+            font-size: 0.875rem;
+        }
+
+        .post-media {
+            width: 100%;
+            background: #fafafa;
+        }
+
+        .post-media img,
+        .post-media video {
+            width: 100%;
+            display: block;
+        }
+
+        .post-likes {
+            padding: 0 16px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .post-content {
+            padding: 8px 16px;
+            line-height: 1.5;
+        }
+
+        .post-content .username {
+            font-weight: 600;
+            margin-right: 8px;
+            color: #262626;
+            text-decoration: none;
+        }
+
+        .hashtag {
+            color: #00376b;
+            text-decoration: none;
+        }
+
+        .hashtag:hover {
+            text-decoration: underline;
+        }
+
+        .post-date {
+            padding: 8px 16px;
+            color: #8e8e8e;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .audio-info {
+            padding: 12px 16px;
+            background: #fafafa;
+            border-top: 1px solid #efefef;
+            font-size: 14px;
+        }
+
+        .audio-info i {
+            margin-right: 8px;
+            color: var(--instagram-pink);
+        }
+
+        .video-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .no-posts {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .pagination-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pagination .page-link {
+            color: var(--instagram-pink);
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--instagram-pink);
+            border-color: var(--instagram-pink);
+        }
+
+        .modal-header {
+            background: linear-gradient(45deg, var(--instagram-purple), var(--instagram-pink));
+            color: white;
+        }
+
+        .modal-header .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #262626;
+        }
+
+        .required-field::after {
+            content: " *";
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation -->
@@ -22,10 +217,10 @@
             <i class="bi bi-instagram"></i> HiKR Ground Instagram Feed
         </a>
         <div>
-            <button class="btn btn-primary me-2" onclick="openCrawlModal()">
+            <button class="btn btn-light me-2" onclick="openCrawlModal()">
                 <i class="bi bi-arrow-clockwise"></i> 크롤링 시작
             </button>
-            <button class="btn btn-success" onclick="openManualAddModal()">
+            <button class="btn btn-light" onclick="openManualAddModal()">
                 <i class="bi bi-plus-circle"></i> 수동추가
             </button>
         </div>
@@ -103,7 +298,7 @@
 
 <!-- Manual Add Modal -->
 <div class="modal fade" id="manualAddModal" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
@@ -112,28 +307,211 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <div class="mb-3">
-                    <label class="form-label">아티클 아이디</label>
-                    <textarea class="form-control" id="manualPostIds" rows="8"
-                              placeholder="게시물 ID 또는 URL을 입력하세요 (여러 개 입력 시 줄바꿈으로 구분)&#10;&#10;예시:&#10;DQ5dAI_kxdj&#10;https://www.instagram.com/p/DQ5dAI_kxdj/&#10;ABC123xyz"></textarea>
-                </div>
-                <div class="alert alert-info">
-                    <i class="bi bi-info-circle"></i>
-                    게시물 ID 또는 전체 URL을 입력할 수 있습니다.<br>
-                    여러 개를 입력할 경우 줄바꿈으로 구분하세요.
-                </div>
+                <form id="manualAddForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required-field">게시물 URL</label>
+                            <input type="text" class="form-control" name="post_url" required
+                                   placeholder="https://www.instagram.com/p/...">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required-field">게시물 고유 ID</label>
+                            <input type="text" class="form-control" name="post_id" required
+                                   placeholder="예: DQ5dAI_kxdj">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required-field">사용자명</label>
+                            <input type="text" class="form-control" name="username" required
+                                   placeholder="예: hikrground_official">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">프로필 이미지 URL</label>
+                            <input type="text" class="form-control" name="profile_image"
+                                   placeholder="https://...">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">게시물 내용</label>
+                        <textarea class="form-control" name="content" rows="4"
+                                  placeholder="게시물 내용을 입력하세요"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">이미지 URL</label>
+                            <input type="text" class="form-control" name="image_url"
+                                   placeholder="https://...">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">비디오 URL</label>
+                            <input type="text" class="form-control" name="video_url"
+                                   placeholder="https://...">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">미디어 타입</label>
+                            <select class="form-select" name="media_type">
+                                <option value="image">Image</option>
+                                <option value="video">Video</option>
+                                <option value="carousel">Carousel</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">좋아요 수</label>
+                            <input type="number" class="form-control" name="likes_count" value="0" min="0">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">게시 일시</label>
+                            <input type="datetime-local" class="form-control" name="posted_at">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">오디오 이름</label>
+                            <input type="text" class="form-control" name="audio_name"
+                                   placeholder="예: 투어스•OVERDRIVE">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">오디오 URL</label>
+                            <input type="text" class="form-control" name="audio_url"
+                                   placeholder="https://...">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">해시태그</label>
+                        <input type="text" class="form-control" name="hashtags"
+                               placeholder="쉼표로 구분하여 입력 (예: HiKRGROUND, HiKR, 서울전시)">
+                        <small class="text-muted">쉼표로 구분하여 입력하세요</small>
+                    </div>
+                </form>
+
                 <div id="manualAddProgress" class="d-none">
                     <div class="progress">
                         <div class="progress-bar progress-bar-striped progress-bar-animated"
                              style="width: 100%"></div>
                     </div>
-                    <p class="text-center mt-2">추가 중...</p>
+                    <p class="text-center mt-2">저장 중...</p>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-success" onclick="startManualAdd()">
-                    <i class="bi bi-plus-circle"></i> 추가하기
+                <button type="button" class="btn btn-success" onclick="submitManualAdd()">
+                    <i class="bi bi-check-circle"></i> 저장
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="bi bi-pencil-square"></i> 게시물 수정
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input type="hidden" name="id" id="edit_id">
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required-field">게시물 URL</label>
+                            <input type="text" class="form-control" name="post_url" id="edit_post_url" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required-field">게시물 고유 ID</label>
+                            <input type="text" class="form-control" name="post_id" id="edit_post_id" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label required-field">사용자명</label>
+                            <input type="text" class="form-control" name="username" id="edit_username" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">프로필 이미지 URL</label>
+                            <input type="text" class="form-control" name="profile_image" id="edit_profile_image">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">게시물 내용</label>
+                        <textarea class="form-control" name="content" id="edit_content" rows="4"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">이미지 URL</label>
+                            <input type="text" class="form-control" name="image_url" id="edit_image_url">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">비디오 URL</label>
+                            <input type="text" class="form-control" name="video_url" id="edit_video_url">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">미디어 타입</label>
+                            <select class="form-select" name="media_type" id="edit_media_type">
+                                <option value="image">Image</option>
+                                <option value="video">Video</option>
+                                <option value="carousel">Carousel</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">좋아요 수</label>
+                            <input type="number" class="form-control" name="likes_count" id="edit_likes_count" min="0">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">게시 일시</label>
+                            <input type="datetime-local" class="form-control" name="posted_at" id="edit_posted_at">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">오디오 이름</label>
+                            <input type="text" class="form-control" name="audio_name" id="edit_audio_name">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">오디오 URL</label>
+                            <input type="text" class="form-control" name="audio_url" id="edit_audio_url">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">해시태그</label>
+                        <input type="text" class="form-control" name="hashtags" id="edit_hashtags">
+                        <small class="text-muted">쉼표로 구분하여 입력하세요</small>
+                    </div>
+                </form>
+
+                <div id="editProgress" class="d-none">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated"
+                             style="width: 100%"></div>
+                    </div>
+                    <p class="text-center mt-2">업데이트 중...</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" onclick="submitEdit()">
+                    <i class="bi bi-check-circle"></i> 저장
                 </button>
             </div>
         </div>
@@ -145,363 +523,6 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
-<script>
-    let currentPage = 1;
-    let totalPages = 1;
-    const postsPerPage = 10;
-
-    // 기본 프로필 이미지 (data URI)
-    const defaultProfileImg = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIyMCIgZmlsbD0iI2U1ZTVlNSIvPjxjaXJjbGUgY3g9IjIwIiBjeT0iMTYiIHI9IjYiIGZpbGw9IiM5OTk5OTkiLz48cGF0aCBkPSJNIDggMzAgQyA4IDI0IDEyIDIwIDIwIDIwIEMgMjggMjAgMzIgMjQgMzIgMzAiIGZpbGw9IiM5OTk5OTkiLz48L3N2Zz4=';
-
-    // 기본 이미지 (data URI)
-    const defaultPostImg = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDYwMCA2MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSIjOTk5Ij5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
-
-    // 페이지 로드 시 게시물 불러오기
-    $(document).ready(function() {
-        loadPosts();
-    });
-
-    // 게시물 목록 불러오기
-    function loadPosts(page = 1) {
-        currentPage = page;
-
-        $.ajax({
-            url: './get_posts.php',
-            method: 'GET',
-            data: { page: page, limit: postsPerPage },
-            dataType: 'json',
-            beforeSend: function() {
-                $('#postsContainer').html(`
-                    <div class="loading">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">로딩중...</span>
-                        </div>
-                    </div>
-                `);
-            },
-            success: function(response) {
-                console.log('Response:', response); // 디버깅용
-                if (response.success) {
-                    displayPosts(response.data.posts);
-                    displayPagination(response.data.pagination);
-                    $('#totalPosts').text(response.data.pagination.total);
-                } else {
-                    showError(response.message || '데이터를 불러올 수 없습니다.');
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error:', status, error); // 디버깅용
-                console.error('Response:', xhr.responseText); // 디버깅용
-                showError('게시물을 불러오는데 실패했습니다. (서버 응답 오류)');
-            }
-        });
-    }
-
-    // 게시물 표시
-    function displayPosts(posts) {
-        if (!posts || posts.length === 0) {
-            $('#postsContainer').html(`
-                <div class="no-posts">
-                    <i class="bi bi-inbox" style="font-size: 48px;"></i>
-                    <p class="mt-3">게시물이 없습니다.</p>
-                    <button class="btn btn-primary mt-2" onclick="openCrawlModal()">
-                        <i class="bi bi-arrow-clockwise"></i> 크롤링 시작
-                    </button>
-                </div>
-            `);
-            return;
-        }
-
-        let html = '';
-        posts.forEach(post => {
-            html += createPostCard(post);
-        });
-
-        $('#postsContainer').html(html);
-    }
-
-    // 게시물 카드 생성
-    function createPostCard(post) {
-        const mediaHtml = getMediaHtml(post);
-        const content = formatContent(post.content);
-        const audioHtml = post.audio_name ? `
-            <div class="audio-info">
-                <i class="bi bi-music-note-beamed"></i>
-                <strong>${escapeHtml(post.audio_name)}</strong>
-            </div>
-        ` : '';
-
-        const profileImg = post.profile_image || defaultProfileImg;
-        const username = escapeHtml(post.username || 'unknown');
-
-        return `
-            <div class="post-card">
-                <div class="post-header">
-                    <img src="${profileImg}" alt="${username}"
-                         onerror="this.src='${defaultProfileImg}'">
-                    <a href="https://www.instagram.com/${username}/"
-                       class="username" target="_blank">${username}</a>
-                </div>
-
-                <div class="row">
-                <div class="col-4 ">
-                    <div class="post-media">
-                        ${mediaHtml}
-                    </div>
-                </div>
-
-                <div class="col-8">
-                    <div class="post-likes">
-                        좋아요 ${post.likes_count || 0}개
-                    </div>
-
-                    <div class="post-content" style="height: 600px; overflow: auto">
-                        <a href="https://www.instagram.com/${username}/" class="username" target="_blank">${username}</a>
-                        ${content}
-                    </div>
-                </div>
-
-                ${audioHtml}
-
-                <div class="post-date">
-                    ${formatDate(post.posted_at)}
-                    <a href="${post.post_url}" target="_blank" class="ms-2">
-                        <i class="bi bi-box-arrow-up-right"></i> 원본 보기
-                    </a>
-                </div>
-            </div>
-        `;
-    }
-
-    // 미디어 HTML 생성
-    function getMediaHtml(post) {
-        if (post.media_type === 'video' && post.video_url) {
-            return `
-                <video controls>
-                    <source src="${post.video_url}" type="video/mp4">
-                    브라우저가 비디오를 지원하지 않습니다.
-                </video>
-                <div class="video-indicator">
-                    <i class="bi bi-play-circle-fill"></i> VIDEO
-                </div>
-            `;
-        } else if (post.image_url) {
-            return `<img src="${post.image_url}" alt="Post image"
-                         onerror="this.src='${defaultPostImg}'">`;
-        } else {
-            return `<img src="${defaultPostImg}" alt="No image">`;
-        }
-    }
-
-    // HTML 이스케이프
-    function escapeHtml(text) {
-        if (!text) return '';
-        const map = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;'
-        };
-        return text.replace(/[&<>"']/g, m => map[m]);
-    }
-
-    // 내용 포맷팅 (해시태그 링크 변환)
-    function formatContent(content) {
-        if (!content) return '';
-
-        // HTML 이스케이프
-        content = escapeHtml(content);
-
-        // 줄바꿈 처리
-        content = content.replace(/\n/g, '<br>');
-
-        // 해시태그 링크 변환
-        content = content.replace(/#([^\s#<]+)/g,
-            '<a href="https://www.instagram.com/explore/tags/$1/" class="hashtag" target="_blank">#$1</a>');
-
-        return content;
-    }
-
-    // 날짜 포맷팅
-    function formatDate(dateString) {
-        if (!dateString) return '';
-
-        const date = new Date(dateString);
-        const now = new Date();
-        const diffMs = now - date;
-        const diffMins = Math.floor(diffMs / 60000);
-        const diffHours = Math.floor(diffMs / 3600000);
-        const diffDays = Math.floor(diffMs / 86400000);
-
-        if (diffMins < 1) return '방금 전';
-        if (diffMins < 60) return `${diffMins}분 전`;
-        if (diffHours < 24) return `${diffHours}시간 전`;
-        if (diffDays < 7) return `${diffDays}일 전`;
-
-        return date.toLocaleDateString('ko-KR');
-    }
-
-    // 페이지네이션 표시
-    function displayPagination(pagination) {
-        totalPages = pagination.totalPages;
-
-        if (totalPages <= 1) {
-            $('#paginationContainer').html('');
-            return;
-        }
-
-        let html = '<nav><ul class="pagination">';
-
-        // 이전 버튼
-        html += `
-            <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-                <a class="page-link" href="#" onclick="loadPosts(${currentPage - 1}); return false;">
-                    <i class="bi bi-chevron-left"></i>
-                </a>
-            </li>
-        `;
-
-        // 페이지 번호
-        let startPage = Math.max(1, currentPage - 2);
-        let endPage = Math.min(totalPages, currentPage + 2);
-
-        for (let i = startPage; i <= endPage; i++) {
-            html += `
-                <li class="page-item ${i === currentPage ? 'active' : ''}">
-                    <a class="page-link" href="#" onclick="loadPosts(${i}); return false;">${i}</a>
-                </li>
-            `;
-        }
-
-        // 다음 버튼
-        html += `
-            <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-                <a class="page-link" href="#" onclick="loadPosts(${currentPage + 1}); return false;">
-                    <i class="bi bi-chevron-right"></i>
-                </a>
-            </li>
-        `;
-
-        html += '</ul></nav>';
-        $('#paginationContainer').html(html);
-
-        // 페이지 변경 시 상단으로 스크롤
-        $('html, body').animate({ scrollTop: 0 }, 300);
-    }
-
-    // 크롤링 모달 열기
-    function openCrawlModal() {
-        const modal = new bootstrap.Modal(document.getElementById('crawlModal'));
-        modal.show();
-        $('#crawlProgress').addClass('d-none');
-    }
-
-    // 수동추가 모달 열기
-    function openManualAddModal() {
-        const modal = new bootstrap.Modal(document.getElementById('manualAddModal'));
-        modal.show();
-        $('#manualAddProgress').addClass('d-none');
-        $('#manualPostIds').val('');
-    }
-
-    // 크롤링 시작
-    function startCrawl() {
-        const username = $('#crawlUsername').val().trim();
-
-        if (!username) {
-            alert('사용자명을 입력해주세요.');
-            return;
-        }
-
-        $('#crawlProgress').removeClass('d-none');
-
-        $.ajax({
-            url: './crawl.php',
-            method: 'POST',
-            data: { username: username },
-            dataType: 'json',
-            success: function(response) {
-                $('#crawlProgress').addClass('d-none');
-
-                if (response.success) {
-                    alert(`크롤링 완료!\n수집된 게시물: ${response.data.posts_count}개`);
-                    bootstrap.Modal.getInstance(document.getElementById('crawlModal')).hide();
-                    loadPosts(1);
-                } else {
-                    alert('크롤링 실패: ' + response.message);
-                }
-            },
-            error: function(xhr) {
-                $('#crawlProgress').addClass('d-none');
-                console.error('Crawl error:', xhr.responseText);
-                alert('크롤링 중 오류가 발생했습니다.');
-            }
-        });
-    }
-
-    // 수동추가 시작
-    function startManualAdd() {
-        const postIds = $('#manualPostIds').val().trim();
-
-        if (!postIds) {
-            alert('게시물 ID를 입력해주세요.');
-            return;
-        }
-
-        $('#manualAddProgress').removeClass('d-none');
-
-        $.ajax({
-            url: './manual_add.php',
-            method: 'POST',
-            data: { post_ids: postIds },
-            dataType: 'json',
-            success: function(response) {
-                $('#manualAddProgress').addClass('d-none');
-
-                if (response.success) {
-                    let message = response.message;
-
-                    if (response.data.failed > 0) {
-                        message += '\n\n실패한 ID:\n' + response.data.failed_ids.join('\n');
-                    }
-
-                    alert(message);
-                    bootstrap.Modal.getInstance(document.getElementById('manualAddModal')).hide();
-                    loadPosts(1);
-                } else {
-                    alert('추가 실패: ' + response.message);
-                }
-            },
-            error: function(xhr) {
-                $('#manualAddProgress').addClass('d-none');
-                console.error('Manual add error:', xhr.responseText);
-
-                let errorMsg = '게시물 추가 중 오류가 발생했습니다.';
-                if (xhr.responseJSON && xhr.responseJSON.message) {
-                    errorMsg = xhr.responseJSON.message;
-                }
-                alert(errorMsg);
-            }
-        });
-    }
-
-    // 에러 표시
-    function showError(message) {
-        $('#postsContainer').html(`
-            <div class="alert alert-danger" role="alert">
-                <i class="bi bi-exclamation-triangle"></i> ${message}
-                <hr>
-                <p class="mb-0">
-                    <small>
-                        • get_posts.php 파일이 올바른 위치에 있는지 확인하세요.<br>
-                        • 데이터베이스 연결을 확인하세요.<br>
-                        • PHP 에러 로그를 확인하세요.
-                    </small>
-                </p>
-            </div>
-        `);
-    }
-</script>
+<script src="./app.js"></script>
 </body>
 </html>

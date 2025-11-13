@@ -1,5 +1,10 @@
 #station_event #sub_banner {
-    background: url(./img/sub_banner_ev.png) no-repeat center center / cover;
+    background: url(../img/sub_banner_ev.png) no-repeat center center / cover;
+}
+
+
+#station_notice #sub_banner {
+    background: url(../img/sub_banner_notice.png) no-repeat center center / cover;
 }
 
 
