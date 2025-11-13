@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Tester - HiKR Ground Instagram Feed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #e1306c;
+            --secondary-color: #833ab4;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .test-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .response-container {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            max-height: 600px;
+            margin-top: 20px;
+        }
+
+        .response-container pre {
+            margin: 0;
+            color: #f8f8f2;
+        }
+
+        .btn-test {
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            border: none;
+            color: white;
+        }
+
+        .btn-test:hover {
+            opacity: 0.9;
+            color: white;
+        }
+
+        .loading-spinner {
+            display: none;
+        }
+
+        .loading-spinner.active {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="bi bi-instagram"></i> API Tester
+        </a>
+        <a href="api_docs.html" class="btn btn-light btn-sm">
+            <i class="bi bi-book"></i> Documentation
+        </a>
+    </div>
+</nav>
+
+<div class="container py-5">
+    <!-- Feed API Test -->
+    <div class="test-card">
+        <h4><i class="bi bi-grid-3x3"></i> Feed API Test</h4>
+        <p class="text-muted">게시물 목록을 조회합니다.</p>
+
+        <div class="row g-3">
+            <div class="col-md-3">
+                <label class="form-label">Page</label>
+                <input type="number" class="form-control" id="feed_page" value="1" min="1">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Limit</label>
+                <input type="number" class="form-control" id="feed_limit" value="10" min="1" max="100">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Username (Optional)</label>
+                <input type="text" class="form-control" id="feed_username" placeholder="hikrground_official">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Sort</label>
+                <select class="form-select" id="feed_sort">
+                    <option value="latest">Latest</option>
+                    <option value="oldest">Oldest</option>
+                    <option value="popular">Popular</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <button class="btn btn-test" onclick="testFeedAPI()">
+                <span class="spinner-border spinner-border-sm loading-spinner" id="feed_spinner"></span>
+                <i class="bi bi-play-fill"></i> Test Feed API
+            </button>
+            <button class="btn btn-outline-secondary ms-2" onclick="clearResponse('feed_response')">
+                <i class="bi bi-x-circle"></i> Clear
+            </button>
+        </div>
+
+        <div id="feed_response" class="response-container" style="display: none;"></div>
+    </div>
+
+    <!-- Post API Test -->
+    <div class="test-card">
+        <h4><i class="bi bi-file-post"></i> Post API Test</h4>
+        <p class="text-muted">개별 게시물을 조회합니다.</p>
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Post ID (Instagram)</label>
+                <input type="text" class="form-control" id="post_id" placeholder="DQ5dAI_kxdj">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">ID (Database - Alternative)</label>
+                <input type="number" class="form-control" id="db_id" placeholder="1">
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <button class="btn btn-test" onclick="testPostAPI()">
+                <span class="spinner-border spinner-border-sm loading-spinner" id="post_spinner"></span>
+                <i class="bi bi-play-fill"></i> Test Post API
+            </button>
+            <button class="btn btn-outline-secondary ms-2" onclick="clearResponse('post_response')">
+                <i class="bi bi-x-circle"></i> Clear
+            </button>
+        </div>
+
+        <div id="post_response" class="response-container" style="display: none;"></div>
+    </div>
+
+    <!-- Stats API Test -->
+    <div class="test-card">
+        <h4><i class="bi bi-bar-chart"></i> Stats API Test</h4>
+        <p class="text-muted">전체 통계 정보를 조회합니다.</p>
+
+        <div class="mt-3">
+            <button class="btn btn-test" onclick="testStatsAPI()">
+                <span class="spinner-border spinner-border-sm loading-spinner" id="stats_spinner"></span>
+                <i class="bi bi-play-fill"></i> Test Stats API
+            </button>
+            <button class="btn btn-outline-secondary ms-2" onclick="clearResponse('stats_response')">
+                <i class="bi bi-x-circle"></i> Clear
+            </button>
+        </div>
+
+        <div id="stats_response" class="response-container" style="display: none;"></div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script>
+    const BASE_URL = './';
+
+    function testFeedAPI() {
+        const page = $('#feed_page').val();
+        const limit = $('#feed_limit').val();
+        const username = $('#feed_username').val();
+        const sort = $('#feed_sort').val();
+
+        let url = `${BASE_URL}api_feed.php?page=${page}&limit=${limit}&sort=${sort}`;
+        if (username) {
+            url += `&username=${encodeURIComponent(username)}`;
+        }
+
+        makeAPICall(url, 'feed_response', 'feed_spinner');
+    }
+
+    function testPostAPI() {
+        const post_id = $('#post_id').val();
+        const db_id = $('#db_id').val();
+
+        if (!post_id && !db_id) {
+            alert('Post ID 또는 Database ID 중 하나를 입력해주세요.');
+            return;
+        }
+
+        let url = `${BASE_URL}api_post.php?`;
+        if (post_id) {
+            url += `post_id=${encodeURIComponent(post_id)}`;
+        } else {
+            url += `id=${db_id}`;
+        }
+
+        makeAPICall(url, 'post_response', 'post_spinner');
+    }
+
+    function testStatsAPI() {
+        const url = `${BASE_URL}api_stats.php`;
+        makeAPICall(url, 'stats_response', 'stats_spinner');
+    }
+
+    function makeAPICall(url, responseId, spinnerId) {
+        const $response = $(`#${responseId}`);
+        const $spinner = $(`#${spinnerId}`);
+
+        $spinner.addClass('active');
+        $response.html('<pre>Loading...</pre>').show();
+
+        $.ajax({
+            url: url,
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                const formatted = JSON.stringify(data, null, 2);
+                $response.html(`<pre>${escapeHtml(formatted)}</pre>`);
+            },
+            error: function(xhr, status, error) {
+                let errorData;
+                try {
+                    errorData = JSON.parse(xhr.responseText);
+                    const formatted = JSON.stringify(errorData, null, 2);
+                    $response.html(`<pre style="color: #ff6b6b;">${escapeHtml(formatted)}</pre>`);
+                } catch (e) {
+                    $response.html(`<pre style="color: #ff6b6b;">Error: ${escapeHtml(xhr.responseText || error)}</pre>`);
+                }
+            },
+            complete: function() {
+                $spinner.removeClass('active');
+            }
+        });
+    }
+
+    function clearResponse(responseId) {
+        $(`#${responseId}`).html('').hide();
+    }
+
+    function escapeHtml(text) {
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, m => map[m]);
+    }
+</script>
+</body>
+</html>

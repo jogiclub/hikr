@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="6c94a161-d76c-4b5d-8c18-c5cb44838fdb" name="iwinV">
+        <fileTransfer accessType="SFTP" host="115.68.218.42" port="22" sshConfigId="0f16945e-9408-4f94-9aa4-38c2b90f7e31" sshConfig="root@115.68.218.42:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

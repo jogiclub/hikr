@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HiKR Ground Instagram Feed API Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #e1306c;
+            --secondary-color: #833ab4;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+
+        .endpoint-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s;
+        }
+
+        .endpoint-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .method-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .method-get {
+            background-color: #61affe;
+            color: white;
+        }
+
+        .endpoint-url {
+            font-family: 'Courier New', monospace;
+            background-color: #f5f5f5;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 15px 0;
+            word-break: break-all;
+        }
+
+        .param-table {
+            font-size: 14px;
+        }
+
+        .response-example {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        .response-example pre {
+            margin: 0;
+            color: #f8f8f2;
+        }
+
+        .section-title {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .try-it-btn {
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .try-it-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="bi bi-instagram"></i> HiKR Ground API Documentation
+        </a>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<div class="hero">
+    <div class="container">
+        <h1 class="display-4 mb-3">Instagram Feed API</h1>
+        <p class="lead">HiKR Ground 인스타그램 피드 데이터를 제공하는 RESTful API입니다.</p>
+        <div class="mt-4">
+            <span class="badge bg-light text-dark me-2">Version 1.0</span>
+            <span class="badge bg-light text-dark">JSON Format</span>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container pb-5">
+    <!-- Base URL -->
+    <div class="endpoint-card">
+        <h3><i class="bi bi-link-45deg"></i> Base URL</h3>
+        <div class="endpoint-url">
+            <strong>https://www.webhows.com/hikr/api/</strong>
+        </div>
+        <p class="text-muted mb-0">모든 API 엔드포인트는 이 기본 URL을 사용합니다.</p>
+    </div>
+
+    <!-- Endpoint 1: Feed List -->
+    <div class="endpoint-card">
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <h4>
+                    <span class="method-badge method-get">GET</span>
+                    게시물 목록 조회
+                </h4>
+            </div>
+            <button class="try-it-btn" onclick="tryFeedAPI()">
+                <i class="bi bi-play-fill"></i> 테스트
+            </button>
+        </div>
+
+        <div class="endpoint-url">/api_feed.php</div>
+
+        <p>인스타그램 게시물 목록을 페이지네이션과 필터링 옵션과 함께 반환합니다.</p>
+
+        <h5 class="section-title">Query Parameters</h5>
+        <table class="table table-bordered param-table">
+            <thead class="table-light">
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+                <th>Default</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><code>page</code></td>
+                <td>integer</td>
+                <td>No</td>
+                <td>페이지 번호 (최소값: 1)</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td><code>limit</code></td>
+                <td>integer</td>
+                <td>No</td>
+                <td>페이지당 게시물 수 (1-100)</td>
+                <td>20</td>
+            </tr>
+            <tr>
+                <td><code>username</code></td>
+                <td>string</td>
+                <td>No</td>
+                <td>필터링할 사용자명</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td><code>media_type</code></td>
+                <td>string</td>
+                <td>No</td>
+                <td>미디어 타입 (image, video, carousel)</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td><code>sort</code></td>
+                <td>string</td>
+                <td>No</td>
+                <td>정렬 방식 (latest, oldest, popular)</td>
+                <td>latest</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h5 class="section-title">Example Request</h5>
+        <div class="endpoint-url">
+            GET /api_feed.php?page=1&limit=10&username=hikrground_official&sort=popular
+        </div>
+
+        <h5 class="section-title">Example Response</h5>
+        <div class="response-example">
+                <pre>{
+  "success": true,
+  "data": {
+    "posts": [
+      {
+        "id": 1,
+        "post_url": "https://www.instagram.com/p/DQ5dAI_kxdj/",
+        "post_id": "DQ5dAI_kxdj",
+        "username": "hikrground_official",
+        "profile_image": "https://...",
+        "content": "🎉 NEW 프로그램 소식...",
+        "video_url": null,
+        "image_url": "https://...",
+        "media_type": "image",
+        "likes_count": 245,
+        "audio_name": "투어스•OVERDRIVE",
+        "audio_url": "https://...",
+        "hashtags": ["HiKRGROUND", "HiKR", "서울전시"],
+        "posted_at": "2025-11-11 10:27:21",
+        "crawled_at": "2025-11-13 09:00:00",
+        "updated_at": "2025-11-13 09:00:00"
+      }
+    ],
+    "pagination": {
+      "current_page": 1,
+      "per_page": 10,
+      "total_posts": 50,
+      "total_pages": 5,
+      "has_next": true,
+      "has_prev": false
+    },
+    "filters": {
+      "username": "hikrground_official",
+      "media_type": null,
+      "sort": "popular"
+    }
+  },
+  "meta": {
+    "timestamp": "2025-11-13 10:30:00",
+    "api_version": "1.0"
+  }
+}</pre>
+        </div>
+    </div>
+
+    <!-- Endpoint 2: Single Post -->
+    <div class="endpoint-card">
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <h4>
+                    <span class="method-badge method-get">GET</span>
+                    개별 게시물 조회
+                </h4>
+            </div>
+            <button class="try-it-btn" onclick="tryPostAPI()">
+                <i class="bi bi-play-fill"></i> 테스트
+            </button>
+        </div>
+
+        <div class="endpoint-url">/api_post.php</div>
+
+        <p>특정 게시물의 상세 정보를 반환합니다.</p>
+
+        <h5 class="section-title">Query Parameters</h5>
+        <table class="table table-bordered param-table">
+            <thead class="table-light">
+            <tr>
+                <th>Parameter</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><code>post_id</code></td>
+                <td>string</td>
+                <td>Yes*</td>
+                <td>인스타그램 게시물 ID (예: DQ5dAI_kxdj)</td>
+            </tr>
+            <tr>
+                <td><code>id</code></td>
+                <td>integer</td>
+                <td>Yes*</td>
+                <td>데이터베이스 내부 ID</td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="text-muted"><small>* post_id 또는 id 중 하나는 필수입니다.</small></p>
+
+        <h5 class="section-title">Example Request</h5>
+        <div class="endpoint-url">
+            GET /api_post.php?post_id=DQ5dAI_kxdj
+        </div>
+
+        <h5 class="section-title">Example Response</h5>
+        <div class="response-example">
+                <pre>{
+  "success": true,
+  "data": {
+    "post": {
+      "id": 1,
+      "post_url": "https://www.instagram.com/p/DQ5dAI_kxdj/",
+      "post_id": "DQ5dAI_kxdj",
+      "username": "hikrground_official",
+      "profile_image": "https://...",
+      "content": "🎉 NEW 프로그램 소식...",
+      "video_url": null,
+      "image_url": "https://...",
+      "media_type": "image",
+      "likes_count": 245,
+      "audio_name": "투어스•OVERDRIVE",
+      "audio_url": "https://...",
+      "hashtags": ["HiKRGROUND", "HiKR", "서울전시"],
+      "posted_at": "2025-11-11 10:27:21",
+      "crawled_at": "2025-11-13 09:00:00",
+      "updated_at": "2025-11-13 09:00:00"
+    }
+  },
+  "meta": {
+    "timestamp": "2025-11-13 10:30:00",
+    "api_version": "1.0"
+  }
+}</pre>
+        </div>
+    </div>
+
+    <!-- Endpoint 3: Statistics -->
+    <div class="endpoint-card">
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <h4>
+                    <span class="method-badge method-get">GET</span>
+                    통계 정보 조회
+                </h4>
+            </div>
+            <button class="try-it-btn" onclick="tryStatsAPI()">
+                <i class="bi bi-play-fill"></i> 테스트
+            </button>
+        </div>
+
+        <div class="endpoint-url">/api_stats.php</div>
+
+        <p>전체 게시물에 대한 통계 정보를 반환합니다.</p>
+
+        <h5 class="section-title">Query Parameters</h5>
+        <p class="text-muted">이 엔드포인트는 쿼리 파라미터가 필요하지 않습니다.</p>
+
+        <h5 class="section-title">Example Request</h5>
+        <div class="endpoint-url">
+            GET /api_stats.php
+        </div>
+
+        <h5 class="section-title">Example Response</h5>
+        <div class="response-example">
+                <pre>{
+  "success": true,
+  "data": {
+    "overview": {
+      "total_posts": 150,
+      "image_posts": 80,
+      "video_posts": 60,
+      "carousel_posts": 10,
+      "total_likes": 12500,
+      "avg_likes": 83.33,
+      "max_likes": 500,
+      "first_post_date": "2025-01-01 10:00:00",
+      "last_post_date": "2025-11-13 09:30:00"
+    },
+    "by_user": [
+      {
+        "username": "hikrground_official",
+        "post_count": 150,
+        "total_likes": 12500,
+        "avg_likes": 83.33
+      }
+    ],
+    "recent_posts": [...],
+    "popular_posts": [...],
+    "daily_stats": [...],
+    "top_hashtags": [
+      {
+        "hashtag": "HiKRGROUND",
+        "count": 145
+      },
+      {
+        "hashtag": "서울전시",
+        "count": 120
+      }
+    ]
+  },
+  "meta": {
+    "timestamp": "2025-11-13 10:30:00",
+    "api_version": "1.0"
+  }
+}</pre>
+        </div>
+    </div>
+
+    <!-- Error Responses -->
+    <div class="endpoint-card">
+        <h4><i class="bi bi-exclamation-triangle"></i> Error Responses</h4>
+
+        <h5 class="section-title">HTTP Status Codes</h5>
+        <table class="table table-bordered param-table">
+            <thead class="table-light">
+            <tr>
+                <th>Code</th>
+                <th>Message</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><code>400</code></td>
+                <td>Bad Request</td>
+                <td>잘못된 요청 파라미터</td>
+            </tr>
+            <tr>
+                <td><code>404</code></td>
+                <td>Not Found</td>
+                <td>요청한 리소스를 찾을 수 없음</td>
+            </tr>
+            <tr>
+                <td><code>405</code></td>
+                <td>Method Not Allowed</td>
+                <td>허용되지 않은 HTTP 메소드</td>
+            </tr>
+            <tr>
+                <td><code>500</code></td>
+                <td>Internal Server Error</td>
+                <td>서버 내부 오류</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h5 class="section-title">Error Response Format</h5>
+        <div class="response-example">
+                <pre>{
+  "success": false,
+  "error": {
+    "code": "POST_NOT_FOUND",
+    "message": "The requested post was not found",
+    "details": "Additional error details"
+  }
+}</pre>
+        </div>
+    </div>
+
+    <!-- Usage Examples -->
+    <div class="endpoint-card">
+        <h4><i class="bi bi-code-square"></i> Usage Examples</h4>
+
+        <h5 class="section-title">JavaScript (Fetch API)</h5>
+        <div class="response-example">
+                <pre>// 게시물 목록 조회
+fetch('https://www.webhows.com/hikr/api/api_feed.php?page=1&limit=10')
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      console.log('Posts:', data.data.posts);
+    }
+  })
+  .catch(error => console.error('Error:', error));
+
+// 개별 게시물 조회
+fetch('https://www.webhows.com/hikr/api/api_post.php?post_id=DQ5dAI_kxdj')
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      console.log('Post:', data.data.post);
+    }
+  });</pre>
+        </div>
+
+        <h5 class="section-title">jQuery</h5>
+        <div class="response-example">
+                <pre>// 게시물 목록 조회
+$.ajax({
+  url: 'https://www.webhows.com/hikr/api/api_feed.php',
+  method: 'GET',
+  data: { page: 1, limit: 10, sort: 'popular' },
+  dataType: 'json',
+  success: function(response) {
+    if (response.success) {
+      console.log('Posts:', response.data.posts);
+    }
+  },
+  error: function(xhr, status, error) {
+    console.error('Error:', error);
+  }
+});</pre>
+        </div>
+
+        <h5 class="section-title">PHP (cURL)</h5>
+        <div class="response-example">
+                <pre>$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, 'https://www.webhows.com/hikr/api/api_feed.php?page=1&limit=10');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
+
+$data = json_decode($response, true);
+if ($data['success']) {
+    print_r($data['data']['posts']);
+}</pre>
+        </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="endpoint-card">
+        <h4><i class="bi bi-info-circle"></i> Important Notes</h4>
+        <ul>
+            <li>모든 응답은 JSON 형식으로 반환됩니다.</li>
+            <li>날짜/시간은 <code>YYYY-MM-DD HH:MM:SS</code> 형식을 사용합니다.</li>
+            <li>CORS가 활성화되어 있어 모든 도메인에서 접근 가능합니다.</li>
+            <li>API 속도 제한은 현재 설정되어 있지 않습니다.</li>
+            <li>is_active = 0인 게시물은 결과에 포함되지 않습니다.</li>
+            <li>해시태그는 배열 형태로 반환됩니다.</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    function tryFeedAPI() {
+        const url = 'https://www.webhows.com/hikr/api/api_feed.php?page=1&limit=5';
+        window.open(url, '_blank');
+    }
+
+    function tryPostAPI() {
+        const url = 'https://www.webhows.com/hikr/api/api_post.php?post_id=DQ5dAI_kxdj';
+        window.open(url, '_blank');
+    }
+
+    function tryStatsAPI() {
+        const url = 'https://www.webhows.com/hikr/api/api_stats.php';
+        window.open(url, '_blank');
+    }
+</script>
+</body>
+</html>
