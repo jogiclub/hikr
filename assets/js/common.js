@@ -478,9 +478,10 @@ function updateWrapperClass(page) {
 /**
  * 공지사항 모달 표시 함수
  */
-function showNoticeModal(title, date, content, imageUrl) {
+function showNoticeModal(title, date, content, imageUrl, postUrl) {
     $('#noticeModalLabel').text(title);
     $('#noticeModalDate').text(date);
+    $('#noticeModalLink').attr('href', postUrl);
 
     let modalContent = '';
     modalContent += '<div class="row">';

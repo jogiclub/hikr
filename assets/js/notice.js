@@ -195,8 +195,9 @@ $(function() {
             const date = $(this).data('date');
             const content = $(this).data('content');
             const imageUrl = $(this).data('image-url');
+            const postUrl = $(this).data('post-url');
 
-            showNoticeModal(title, date, content, imageUrl);
+            showNoticeModal(title, date, content, imageUrl, postUrl);
         });
     }
 });
