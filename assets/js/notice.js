@@ -110,7 +110,8 @@ $(function() {
                 <div class="card h-100 notice-card api-notice" 
                      data-title="${escapeHtml(title)}"
                      data-date="${postDate}"
-                     data-content="${escapeHtml(post.content)}"
+                     data-content="${escapeHtml(post.content).replace(/\n/g, '<br>')}"
+                     data-image-url="${imageUrl}"
                      style="cursor: pointer;">
                     <img src="${imageUrl}" 
                          class="card-img" 
@@ -193,8 +194,9 @@ $(function() {
             const title = $(this).data('title');
             const date = $(this).data('date');
             const content = $(this).data('content');
+            const imageUrl = $(this).data('image-url');
 
-            showNoticeModal(title, date, content);
+            showNoticeModal(title, date, content, imageUrl);
         });
     }
 });

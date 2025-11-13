@@ -218,8 +218,7 @@ $(function() {
     // 메뉴 이벤트 바인딩
     bindMenuEvents();
 
-    // 공지사항 이벤트 바인딩
-    bindNoticeEvents();
+
 
     // 화면 크기 변경에 따른 이벤트 처리
     $(window).on('resize', function() {
@@ -232,7 +231,7 @@ $(function() {
     initSlide();
 
     // 인스타그램 이벤트 로드
-    loadInstagramEvents();
+    // loadInstagramEvents();
 
     // 인트로 섹션 레이아웃 업데이트
     handleIntroLayout();
@@ -479,45 +478,26 @@ function updateWrapperClass(page) {
 /**
  * 공지사항 모달 표시 함수
  */
-function showNoticeModal(title, date, content) {
+function showNoticeModal(title, date, content, imageUrl) {
     $('#noticeModalLabel').text(title);
     $('#noticeModalDate').text(date);
-    $('#noticeModalContent').html(content);
 
-    const simplebarElement = $('#noticeModalContent')[0];
-    if (simplebarElement.SimpleBar) {
-        simplebarElement.SimpleBar.unMount();
+    let modalContent = '';
+    modalContent += '<div class="row">';
+    if (imageUrl) {
+        modalContent += `<div class="col-12 col-lg-6"><img src="${imageUrl}" style="width: 100%; max-width: 100%; height: auto; margin-bottom: 1rem;" alt="${title}" onerror="this.style.display='none'"></div>`;
     }
-    new SimpleBar(simplebarElement);
+    modalContent += `<div class="col-12 col-lg-6"><div style="height: 80vh; overflow-y: auto;">${content}</div></div>`;
+    modalContent += `</div>`;
+
+    $('#noticeModalContent').html(modalContent);
+
+
 
     const modal = new bootstrap.Modal($('#noticeModal')[0]);
     modal.show();
 }
 
-/**
- * 공지사항 데이터 반환 함수
- */
-function getNoticeContent(noticeId) {
-    const notices = {
-        'notice_1': { title: '하이커 그라운드 촬영 가이드', date: '2025-02-27', content: `<p>하이커 그라운드 촬영 가이드 안내입니다.</p><br><img src="./assets/img/insta_01.jpg" style="width: 100%" alt=""/><img src="./assets/img/insta_02.jpg" style="width: 100%" alt=""/><img src="./assets/img/insta_03.jpg" style="width: 100%" alt=""/><p>촬영 시 다음 사항을 준수해 주시기 바랍니다:</p><ul><li>장시간 특정 공간을 독점하거나 다른 관람객에게 피해가 가는 경우 촬영 행위가 제한될 수 있습니다. 전시관의 동선을 방해하는 촬영은 제한됩니다.</li><li>플래시 및 전문촬영 장비는 사용이 제한됩니다.</li><li>전시관 성격과 무관한 단체촬영, 또는 개인작업물 촬영은 제한됩니다.</li><li>다른 관람객들이 불편함을 느끼거나, 저작권 및 초상권을 침해하는 촬영은 불가합니다. 취재 및 인터뷰가 포함된 촬영은 제한됩니다.</li><li>상업적 촬영 진행 시, 하이커 그라운드 대관신청을 선행하고 허가 후 진행해야 합니다.</li></ul><br><p>문의사항은 이메일(hikr@knto.or.kr) 또는 전화(02-729-9497~8)로 연락 주시기 바랍니다.</p>` },
-        'notice_2': { title: '하이커그라운드 리플렛', date: '2025-04-25', content: `<p>하이커 그라운드 리플렛을 다운로드 받으실 수 있습니다.</p><br><img src="./assets/img/insta_11.jpg" style="width: 100%" alt=""/><img src="./assets/img/insta_12.jpg" style="width: 100%" alt=""/><img src="./assets/img/insta_13.jpg" style="width: 100%" alt=""/><p>리플렛에는 다음과 같은 내용이 포함되어 있습니다:</p><ul><li>하이커 그라운드 소개</li><li>층별 전시 안내</li><li>운영 시간 및 휴무일</li><li>오시는 길</li></ul><br><p>자세한 내용은 현장에서 확인하실 수 있습니다.</p>` },
-        'notice_3': { title: '하이커 그라운드 대관 및 촬영 안내 자료', date: '2025-04-25', content: `<p>하이커 그라운드 대관 및 촬영 안내 자료입니다.</p><br><p>대관 및 촬영 신청 절차:</p><ol><li>이메일을 통한 사전 문의</li><li>신청서 작성 및 제출</li><li>일정 및 비용 협의</li><li>계약서 작성</li></ol><br><p>자세한 상담을 원하시면 hikr@knto.or.kr로 문의해 주시기 바랍니다.</p>` }
-    };
-    return notices[noticeId] || null;
-}
-
-/**
- * 공지사항 이벤트 바인딩 함수
- */
-function bindNoticeEvents() {
-    $(document).on('click', '.notice-card[data-notice-id]', function() {
-        const noticeId = $(this).data('notice-id');
-        const noticeData = getNoticeContent(noticeId);
-        if (noticeData) {
-            showNoticeModal(noticeData.title, noticeData.date, noticeData.content);
-        }
-    });
-}
 
 /**
  * Offcanvas 전환 함수
@@ -548,38 +528,6 @@ function toggleOffcanvas(page) {
     }
 }
 
-/**
- * 인스타그램 이벤트 로드 함수
- */
-async function loadInstagramEvents() {
-    try {
-        const response = await fetch('./api/api_feed.php');
-        if (!response.ok) throw new Error('Network response was not ok');
-        const posts = await response.json();
-        const $eventList = $('#event-list');
-
-        if (posts.length === 0) {
-            $eventList.html('<p class="text-center col-12">진행 중인 이벤트가 없습니다.</p>');
-            return;
-        }
-
-        const postElements = posts.map(post => `
-            <div class="col">
-                <a href="${post.permalink}" target="_blank" class="card-link">
-                    <div class="card h-100 notice-card">
-                        <img src="${post.media_url}" class="card-img-top" alt="이벤트 이미지" style="aspect-ratio: 1 / 1; object-fit: cover;">
-                        <div class="card-body">
-                            <p class="card-text-insta">${post.caption.substring(0, 100)}...</p>
-                        </div>
-                    </div>
-                </a>
-            </div>`);
-        $eventList.html(postElements.join(''));
-    } catch (error) {
-        console.error('Error fetching Instagram events:', error);
-        $('#event-list').html('<p class="text-center col-12">이벤트 정보를 불러오는 데 실패했습니다.</p>');
-    }
-}
 
 /* Bootstrap Offcanvas를 초기화하는 함수 (추가됨)
 * Bootstrap JS가 로드되면 기본 기능은 Data API로 동작하지만,
