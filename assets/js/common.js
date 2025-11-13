@@ -1,95 +1,65 @@
 'use strict';
 
-/**
- * Instagram Feed API를 사용하여 공지사항 표시
- * common.js 파일의 loadInstagramEvents() 함수를 이것으로 대체하거나
- * 별도로 호출하여 공지사항 섹션을 채웁니다
- */
+let noticeLoaded = false;
 
-/**
- * API에서 인스타그램 게시물을 가져와 공지사항으로 표시
- */
 async function loadNoticeFromAPI() {
     try {
-        // API에서 최신 게시물 12개 가져오기 (공지사항 그리드에 맞춤)
-        const response = await fetch('./api/api_feed.php?page=1&limit=12&sort=latest');
-
+        const response = await fetch('./api/get_posts.php?page=1&limit=16');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-
         const result = await response.json();
-
         if (!result.success || !result.data || !result.data.posts) {
             throw new Error('API 응답 형식이 올바르지 않습니다.');
         }
-
         const posts = result.data.posts;
-
         if (posts.length === 0) {
             displayNoNotices();
             return;
         }
-
         displayNoticeCards(posts);
-
     } catch (error) {
         console.error('공지사항 로드 실패:', error);
         displayNoticeError(error.message);
     }
 }
 
-/**
- * 공지사항 카드를 화면에 표시
- */
 function displayNoticeCards(posts) {
-    // 공지사항 컨테이너 찾기
     const $noticeContainer = $('#notice .row.g-4.my-5');
-
     if (!$noticeContainer.length) {
         console.error('공지사항 컨테이너를 찾을 수 없습니다.');
         return;
     }
-
-    // 기존 내용 제거
     $noticeContainer.empty();
-
-    // 각 게시물을 카드로 생성
-    posts.forEach((post, index) => {
-        const card = createNoticeCard(post, index);
+    posts.forEach((post) => {
+        const card = createNoticeCard(post);
         $noticeContainer.append(card);
     });
-
     console.log(`${posts.length}개의 공지사항이 로드되었습니다.`);
 }
 
-/**
- * 개별 공지사항 카드 HTML 생성
- */
-function createNoticeCard(post, index) {
-    // 이미지 URL 결정 (이미지 또는 비디오 썸네일)
-    const imageUrl = post.image_url || post.video_url || './assets/img/tmp_notice_01.png';
-
-    // 제목 추출 (content의 첫 줄 또는 첫 50자)
-    let title = post.content ? post.content.split('\n')[0] : '공지사항';
-    if (title.length > 50) {
-        title = title.substring(0, 50) + '...';
+function createNoticeCard(post) {
+    const imageUrl = post.image_url || './assets/img/tmp_notice_01.png';
+    let title = '공지사항';
+    if (post.content) {
+        const lines = post.content.split('\n').filter(line => line.trim() !== '');
+        if (lines.length > 0) {
+            title = lines[0];
+        }
     }
-
-    // 날짜 포맷팅
+    if (title.length > 50) {
+        title = title.substring(0, 47) + '...';
+    }
     const postDate = formatNoticeDate(post.posted_at);
-
-    // 카드 HTML 생성
-    const cardHtml = `
+    return `
         <div class="col-6 col-xl-3">
             <div class="card h-100 notice-card api-notice" 
-                 data-post-id="${post.post_id}" 
-                 data-post-url="${post.post_url}"
+                 data-title="${escapeHtml(title)}"
+                 data-date="${postDate}"
+                 data-content="${escapeHtml(post.content).replace(/\n/g, '<br>')}"
+                 data-image-url="${imageUrl}"
                  style="cursor: pointer;">
-                <img src="${imageUrl}" 
-                     class="card-img" 
-                     alt="${escapeHtml(title)}"
-                     onerror="this.src='./assets/img/tmp_notice_01.png'">
+                <img src="${imageUrl}" class="card-img" alt="${escapeHtml(title)}" onerror="this.src='./assets/img/tmp_notice_01.png'">
                 <div class="card-img-overlay d-flex flex-column justify-content-end">
                     <div class="notice-overlay-gradient"></div>
                     <div class="notice-content">
@@ -102,266 +72,119 @@ function createNoticeCard(post, index) {
             </div>
         </div>
     `;
-
-    return cardHtml;
 }
 
-/**
- * 날짜 포맷팅 함수
- */
 function formatNoticeDate(dateString) {
     if (!dateString) return '';
-
     try {
         const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-
-        return `${year}-${month}-${day}`;
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
     } catch (e) {
         return dateString;
     }
 }
 
-/**
- * HTML 이스케이프 함수
- */
 function escapeHtml(text) {
     if (!text) return '';
-    const map = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-    };
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
     return text.replace(/[&<>"']/g, m => map[m]);
 }
 
-/**
- * 공지사항이 없을 때 표시
- */
 function displayNoNotices() {
-    const $noticeContainer = $('#notice .row.g-4.my-5');
-
-    $noticeContainer.html(`
-        <div class="col-12 text-center py-5">
-            <i class="bi bi-inbox" style="font-size: 48px; color: #ccc;"></i>
-            <p class="mt-3 text-muted">등록된 공지사항이 없습니다.</p>
-        </div>
-    `);
+    $('#notice .row.g-4.my-5').html(`<div class="col-12 text-center py-5"><p class="mt-3 text-muted">등록된 공지사항이 없습니다.</p></div>`);
 }
 
-/**
- * 에러 표시
- */
 function displayNoticeError(errorMessage) {
-    const $noticeContainer = $('#notice .row.g-4.my-5');
-
-    $noticeContainer.html(`
-        <div class="col-12">
-            <div class="alert alert-warning" role="alert">
-                <i class="bi bi-exclamation-triangle"></i>
-                공지사항을 불러오는 중 오류가 발생했습니다.
-                <br>
-                <small>${escapeHtml(errorMessage)}</small>
-            </div>
-        </div>
-    `);
+    $('#notice .row.g-4.my-5').html(`<div class="col-12"><div class="alert alert-warning" role="alert">공지사항을 불러오는 중 오류가 발생했습니다.<br><small>${escapeHtml(errorMessage)}</small></div></div>`);
 }
 
-/**
- * API 공지사항 카드 클릭 이벤트 바인딩
- */
 function bindAPINoticeClickEvents() {
-    $(document).on('click', '.api-notice', function(e) {
-        e.preventDefault();
-
-        const postUrl = $(this).data('post-url');
-        const postId = $(this).data('post-id');
-
-        if (postUrl) {
-            // 인스타그램 게시물을 새 창에서 열기
-            window.open(postUrl, '_blank');
-        } else {
-            console.warn('게시물 URL을 찾을 수 없습니다:', postId);
-        }
+    $(document).off('click', '.api-notice').on('click', '.api-notice', function() {
+        const title = $(this).data('title');
+        const date = $(this).data('date');
+        const content = $(this).data('content');
+        const imageUrl = $(this).data('image-url');
+        showNoticeModal(title, date, content, imageUrl);
     });
 }
 
-/**
- * 페이지 로드 시 공지사항 초기화
- * 이 함수를 $(document).ready() 안에서 호출하세요
- */
 function initializeNoticeSection() {
-    // API에서 공지사항 로드
+    if (noticeLoaded) {
+        return;
+    }
     loadNoticeFromAPI();
-
-    // 클릭 이벤트 바인딩
     bindAPINoticeClickEvents();
+    noticeLoaded = true;
 }
 
 $(function() {
-    // 페이지 로드 완료 시 스피너 제거
     hidePageLoader();
-
-    // AOS 초기화 및 SimpleBar 연동
     initAOS();
-
-    // Offcanvas 초기화
     initOffcanvas();
-
-    // 페이지 라우팅 초기화
     initRouting();
-
-    // 메뉴 이벤트 바인딩
     bindMenuEvents();
-
-
-
-    // 화면 크기 변경에 따른 이벤트 처리
+    // bindNoticeEvents();
     $(window).on('resize', function() {
         applyScreenHeight();
         handleOffcanvasResize();
         AOS.refresh();
     }).trigger('resize');
-
-    // 슬라이드 초기화
     initSlide();
-
-    // 인스타그램 이벤트 로드
-    // loadInstagramEvents();
-
-    // 인트로 섹션 레이아웃 업데이트
+    loadInstagramEvents();
     handleIntroLayout();
 });
 
-/**
- * 페이지 로더 숨김 함수
- */
 function hidePageLoader() {
     const $loader = $('#pageLoader');
     if ($loader.length) {
         $loader.addClass('fade-out');
-        setTimeout(function() {
-            $loader.remove();
-        }, 300);
+        setTimeout(() => $loader.remove(), 300);
     }
 }
 
-
-
-/**
- * 슬라이드 초기화 함수
- */
 function initSlide() {
-    const slickOptions = {
-        dots: true,
-        infinite: true,
-        speed: 1500,
-        fade: true,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        cssEase: 'ease',
-        pauseOnHover: false,
-        pauseOnFocus: false,
-        waitForAnimate: true
-    };
-
+    const slickOptions = { dots: true, infinite: true, speed: 1500, fade: true, autoplay: true, autoplaySpeed: 3000, cssEase: 'ease', pauseOnHover: false, pauseOnFocus: false, waitForAnimate: true };
     const $coverSlide = $('.cover-slide');
     if ($coverSlide.length && !$coverSlide.hasClass('slick-initialized')) {
         $coverSlide.slick(slickOptions);
     }
-
-    const programSliderOptions = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        arrows: true,
-        prevArrow: '<button type="button" class="slick-prev"></button>',
-        nextArrow: '<button type="button" class="slick-next"></button>',
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        cssEase: 'ease-in-out'
-    };
-
+    const programSliderOptions = { dots: true, infinite: true, speed: 500, arrows: true, prevArrow: '<button type="button" class="slick-prev"></button>', nextArrow: '<button type="button" class="slick-next"></button>', slidesToShow: 1, slidesToScroll: 1, autoplay: true, autoplaySpeed: 3000, cssEase: 'ease-in-out' };
     const $mobileSlider = $('.v2-cards-mobile-slider');
     if ($mobileSlider.length && !$mobileSlider.hasClass('slick-initialized')) {
-        $mobileSlider.slick($.extend({}, programSliderOptions, { arrows: false }));
+        $mobileSlider.slick({ ...programSliderOptions, arrows: false });
     }
-
     const $cardsSlider = $('.v2-cards-slider');
     if ($cardsSlider.length && !$cardsSlider.hasClass('slick-initialized')) {
-        $cardsSlider.slick($.extend({}, programSliderOptions, {
-            arrows: true,
-            prevArrow: '<button type="button" class="slick-prev v2-cards-prev"></button>',
-            nextArrow: '<button type="button" class="slick-next v2-cards-next"></button>'
-        }));
+        $cardsSlider.slick({ ...programSliderOptions, prevArrow: '<button type="button" class="slick-prev v2-cards-prev"></button>', nextArrow: '<button type="button" class="slick-next v2-cards-next"></button>' });
     }
 }
 
-/**
- * 메인 슬라이더 재초기화 함수
- */
 function reinitializeMainSlider() {
     const $coverSlide = $('.cover-slide');
-
-    // 기존 슬라이더가 초기화되어 있으면 제거
     if ($coverSlide.hasClass('slick-initialized')) {
         $coverSlide.slick('unslick');
     }
-
-    // 슬라이더 재초기화
-    const slickOptions = {
-        dots: true,
-        infinite: true,
-        speed: 1500,
-        fade: true,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        cssEase: 'ease',
-        pauseOnHover: false,
-        pauseOnFocus: false,
-        waitForAnimate: true
-    };
-
+    const slickOptions = { dots: true, infinite: true, speed: 1500, fade: true, autoplay: true, autoplaySpeed: 3000, cssEase: 'ease', pauseOnHover: false, pauseOnFocus: false, waitForAnimate: true };
     if ($coverSlide.length) {
         $coverSlide.slick(slickOptions);
     }
 }
 
-/**
- * 화면 높이를 뷰포트에 맞게 적용하는 함수
- */
 function applyScreenHeight() {
-    const viewportHeight = $(window).height();
-    $('#main, .cover-slide .item, .main-bg, .main-bg-img, #main_station, .station-cover').height(viewportHeight);
+    $('#main, .cover-slide .item, .main-bg, .main-bg-img, #main_station, .station-cover').height($(window).height());
 }
 
-/**
- * Offcanvas 초기화 함수 (1200px 이상에서)
- */
 function initOffcanvas() {
-    const windowWidth = $(window).width();
     const $offcanvasGnb = $('#offcanvasGnb');
-
-    if (windowWidth >= 1200) {
+    if ($(window).width() >= 1200) {
         $offcanvasGnb.removeAttr('style').addClass('no-transition show');
         setTimeout(() => $offcanvasGnb.removeClass('no-transition'), 50);
     }
 }
 
-/**
- * 화면 크기 변경 시 Offcanvas 상태 제어 함수
- */
 function handleOffcanvasResize() {
-    const windowWidth = $(window).width();
     const $offcanvasGnb = $('#offcanvasGnb');
-
-    if (windowWidth >= 1200) {
+    if ($(window).width() >= 1200) {
         if (!$offcanvasGnb.hasClass('show')) {
             $offcanvasGnb.removeAttr('style').addClass('no-transition show');
             setTimeout(() => $offcanvasGnb.removeClass('no-transition'), 50);
@@ -371,37 +194,25 @@ function handleOffcanvasResize() {
     }
 }
 
-/**
- * 페이지 라우팅 초기화 함수
- */
 function initRouting() {
     const hash = window.location.hash.replace('#', '');
     showPage(hash || 'main');
-
     $(window).on('hashchange', function() {
-        const currentHash = window.location.hash.replace('#', '');
-        showPage(currentHash || 'main');
+        showPage(window.location.hash.replace('#', '') || 'main');
     });
 }
 
-/**
- * 메뉴 이벤트 바인딩 함수
- */
 function bindMenuEvents() {
     $(document).on('click', '.menu-link', function(e) {
         e.preventDefault();
         navigateToPage($(this).data('page'));
     });
-
     $(document).on('click', 'header a[href="/"], header a[href="/hikr/"], header a[href="/hikr"], a[href*="intro.php"]', function(e) {
         e.preventDefault();
         navigateToPage('main');
     });
 }
 
-/**
- * 페이지 네비게이션 함수
- */
 function navigateToPage(page) {
     const hash = page === 'main' ? '' : '#' + page;
     if (window.location.hash !== hash) {
@@ -412,60 +223,39 @@ function navigateToPage(page) {
     }
 }
 
-
-
-
-/**
- * 페이지 표시 함수
- */
 function showPage(page) {
     $('main[id]').hide();
     const $targetPage = $('#' + page);
-
     if ($targetPage.length) {
         $targetPage.show();
     } else {
         $('#main').show();
     }
-
     toggleOffcanvas(page);
-
-    // wrapper에 페이지별 클래스 추가
     updateWrapperClass(page);
 
-    // main 페이지로 이동 시 슬라이더 재초기화
+    if (page === 'notice') {
+        initializeNoticeSection();
+    }
+
     if (page === 'main') {
-        setTimeout(function() {
-            reinitializeMainSlider();
-        }, 100);
+        setTimeout(() => reinitializeMainSlider(), 100);
     } else if (page === 'regular_program') {
         setTimeout(initSlide, 100);
     }
-
     if ($(window).width() < 1200) {
         const offcanvas = bootstrap.Offcanvas.getInstance($('#offcanvasGnb').get(0));
-        if (offcanvas) {
-            offcanvas.hide();
-        }
+        if (offcanvas) offcanvas.hide();
     }
-
     setTimeout(() => {
         $('.scrollable-container .simplebar-content-wrapper').scrollTop(0);
         AOS.refresh();
     }, 100);
 }
 
-/**
- * wrapper 클래스 업데이트 함수
- * 페이지별로 wrapper에 적절한 클래스를 추가합니다
- */
 function updateWrapperClass(page) {
     const $wrapper = $('#wrapper');
-
-    // 기존 페이지 클래스 제거
     $wrapper.removeClass('intro-wrap main-wrap sub-wrap');
-
-    // 페이지별 클래스 추가
     if (page === 'intro') {
         $wrapper.addClass('intro-wrap');
     } else if (page === 'main' || page === 'main_station') {
@@ -475,9 +265,6 @@ function updateWrapperClass(page) {
     }
 }
 
-/**
- * 공지사항 모달 표시 함수
- */
 function showNoticeModal(title, date, content, imageUrl, postUrl) {
     $('#noticeModalLabel').text(title);
     $('#noticeModalDate').text(date);
@@ -490,19 +277,31 @@ function showNoticeModal(title, date, content, imageUrl, postUrl) {
     }
     modalContent += `<div class="col-12 col-lg-6"><div style="height: 80vh; overflow-y: auto;">${content}</div></div>`;
     modalContent += `</div>`;
-
     $('#noticeModalContent').html(modalContent);
-
-
-
     const modal = new bootstrap.Modal($('#noticeModal')[0]);
     modal.show();
 }
 
 
-/**
- * Offcanvas 전환 함수
- */
+// function getNoticeContent(noticeId) {
+//     const notices = {
+//         'notice_1': { title: '하이커 그라운드 촬영 가이드', date: '2025-02-27', content: `<p>하이커 그라운드 촬영 가이드 안내입니다.</p><br><img src="./assets/img/insta_01.jpg" style="width: 100%" alt=""/><img src="./assets/img/insta_02.jpg" style="width: 100%" alt=""/><img src="./assets/img/insta_03.jpg" style="width: 100%" alt=""/><p>촬영 시 다음 사항을 준수해 주시기 바랍니다:</p><ul><li>장시간 특정 공간을 독점하거나 다른 관람객에게 피해가 가는 경우 촬영 행위가 제한될 수 있습니다. 전시관의 동선을 방해하는 촬영은 제한됩니다.</li><li>플래시 및 전문촬영 장비는 사용이 제한됩니다.</li><li>전시관 성격과 무관한 단체촬영, 또는 개인작업물 촬영은 제한됩니다.</li><li>다른 관람객들이 불편함을 느끼거나, 저작권 및 초상권을 침해하는 촬영은 불가합니다. 취재 및 인터뷰가 포함된 촬영은 제한됩니다.</li><li>상업적 촬영 진행 시, 하이커 그라운드 대관신청을 선행하고 허가 후 진행해야 합니다.</li></ul><br><p>문의사항은 이메일(hikr@knto.or.kr) 또는 전화(02-729-9497~8)로 연락 주시기 바랍니다.</p>` },
+//         'notice_2': { title: '하이커그라운드 리플렛', date: '2025-04-25', content: `<p>하이커 그라운드 리플렛을 다운로드 받으실 수 있습니다.</p><br><img src="./assets/img/insta_11.jpg" style="width: 100%" alt=""/><img src="./assets/img/insta_12.jpg" style="width: 100%" alt=""/><img src="./assets/img/insta_13.jpg" style="width: 100%" alt=""/><p>리플렛에는 다음과 같은 내용이 포함되어 있습니다:</p><ul><li>하이커 그라운드 소개</li><li>층별 전시 안내</li><li>운영 시간 및 휴무일</li><li>오시는 길</li></ul><br><p>자세한 내용은 현장에서 확인하실 수 있습니다.</p>` },
+//         'notice_3': { title: '하이커 그라운드 대관 및 촬영 안내 자료', date: '2025-04-25', content: `<p>하이커 그라운드 대관 및 촬영 안내 자료입니다.</p><br><p>대관 및 촬영 신청 절차:</p><ol><li>이메일을 통한 사전 문의</li><li>신청서 작성 및 제출</li><li>일정 및 비용 협의</li><li>계약서 작성</li></ol><br><p>자세한 상담을 원하시면 hikr@knto.or.kr로 문의해 주시기 바랍니다.</p>` }
+//     };
+//     return notices[noticeId] || null;
+// }
+
+// function bindNoticeEvents() {
+//     $(document).on('click', '.notice-card[data-notice-id]', function() {
+//         const noticeId = $(this).data('notice-id');
+//         const noticeData = getNoticeContent(noticeId);
+//         if (noticeData) {
+//             showNoticeModal(noticeData.title, noticeData.date, noticeData.content);
+//         }
+//     });
+// }
+
 function toggleOffcanvas(page) {
     const stationPages = ['main_station', 'station_notice', 'station_qna', 'station_event', 'station_about', 'station_visit'];
     const $offcanvasGnb = $('#offcanvasGnb');
@@ -510,12 +309,10 @@ function toggleOffcanvas(page) {
     const $gnbStation = $('.gnb-station');
     const $logoStation = $('.logo-station');
     const $logoGround = $('.logo-ground');
-
     if ($(window).width() >= 1200) {
         $offcanvasGnb.addClass('no-transition show');
         setTimeout(() => $offcanvasGnb.removeClass('no-transition'), 50);
     }
-
     if (stationPages.includes(page)) {
         $gnbGround.css('display', 'none');
         $gnbStation.css('display', 'block');
@@ -529,39 +326,62 @@ function toggleOffcanvas(page) {
     }
 }
 
-
-/* Bootstrap Offcanvas를 초기화하는 함수 (추가됨)
-* Bootstrap JS가 로드되면 기본 기능은 Data API로 동작하지만,
-* 함수 정의가 누락된 오류를 해결하기 위해 빈 함수로 추가합니다.
-*/
-function initOffcanvas() {
-    // 여기에 Offcanvas 관련 추가적인 자바스크립트 로직을 구현할 수 있습니다.
-    // 예: 특정 Offcanvas 이벤트 리스너 등록
-
-    // 기본 Bootstrap Offcanvas 기능은 data-bs-toggle="offcanvas" 속성으로 작동합니다.
-    // 현재 코드에서는 오류 해결을 위해 함수만 정의합니다.
-    console.log('Offcanvas initialized (via function definition).');
+async function loadInstagramEvents() {
+    try {
+        const response = await fetch('./api/api_feed.php');
+        if (!response.ok) throw new Error('Network response was not ok');
+        const posts = await response.json();
+        const $eventList = $('#event-list');
+        if (posts.length === 0) {
+            $eventList.html('<p class="text-center col-12">진행 중인 이벤트가 없습니다.</p>');
+            return;
+        }
+        const postElements = posts.map(post => `
+            <div class="col">
+                <a href="${post.permalink}" target="_blank" class="card-link">
+                    <div class="card h-100 notice-card">
+                        <img src="${post.media_url}" class="card-img-top" alt="이벤트 이미지" style="aspect-ratio: 1 / 1; object-fit: cover;">
+                        <div class="card-body">
+                            <p class="card-text-insta">${post.caption.substring(0, 100)}...</p>
+                        </div>
+                    </div>
+                </a>
+            </div>`);
+        $eventList.html(postElements.join(''));
+    } catch (error) {
+        console.error('Error fetching Instagram events:', error);
+        $('#event-list').html('<p class="text-center col-12">이벤트 정보를 불러오는 데 실패했습니다.</p>');
+    }
 }
 
-/**
- * 인트로 섹션 레이아웃 처리 함수
- */
+function initAOS() {
+    AOS.init({
+        startEvent: 'load',
+        offset: 120,
+        duration: 800,
+        easing: 'ease',
+        once: false,
+        mirror: false
+    });
+    const simplebarContent = document.querySelector('.scrollable-container .simplebar-content-wrapper');
+    if (simplebarContent) {
+        simplebarContent.addEventListener('scroll', () => AOS.refresh());
+    } else {
+        console.warn('SimpleBar 스크롤 컨테이너를 찾을 수 없습니다');
+    }
+}
+
 function handleIntroLayout() {
     const $leftSection = $('.item--left');
     const $rightSection = $('.item--right');
     let isLeftHovered = false;
     let isRightHovered = false;
-
-    function isMobile() {
-        return $(window).width() <= 1000;
-    }
-
+    const isMobile = () => $(window).width() <= 1000;
     function updateLayout() {
         if (isMobile()) {
             $leftSection.add($rightSection).removeAttr('style');
             return;
         }
-
         if (isLeftHovered) {
             $leftSection.css({ width: '85%', clipPath: 'polygon(0 0, 100% 0, 90% 100%, 0 100%)', zIndex: 5 });
             $rightSection.css({ width: '40%', right: 0, clipPath: 'polygon(0% 0, 100% 0, 100% 100%, 0% 100%)', zIndex: 1 });
@@ -573,46 +393,15 @@ function handleIntroLayout() {
             $rightSection.css({ width: '60%', clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0% 100%)', zIndex: 1 });
         }
     }
-
     $leftSection.on('mouseenter mouseleave', function(e) {
         if (isMobile()) return;
         isLeftHovered = e.type === 'mouseenter';
         updateLayout();
     });
-
     $rightSection.on('mouseenter mouseleave', function(e) {
         if (isMobile()) return;
         isRightHovered = e.type === 'mouseenter';
         updateLayout();
     });
-
     $(window).on('resize', updateLayout).trigger('resize');
-}
-
-
-/**
- * AOS 초기화 및 SimpleBar 스크롤 이벤트 연동 함수 (대안)
- */
-function initAOS() {
-    AOS.init({
-        startEvent: 'load',
-        offset: 120,
-        duration: 800,
-        easing: 'ease',
-        once: false,
-        mirror: false
-    });
-
-    // SimpleBar의 실제 스크롤 컨테이너를 직접 찾기
-    const simplebarContent = document.querySelector('.scrollable-container .simplebar-content-wrapper');
-
-    if (simplebarContent) {
-        simplebarContent.addEventListener('scroll', function() {
-            AOS.refresh();
-        });
-
-        // console.log('AOS와 SimpleBar 스크롤 연동 완료');
-    } else {
-        console.warn('SimpleBar 스크롤 컨테이너를 찾을 수 없습니다');
-    }
 }
