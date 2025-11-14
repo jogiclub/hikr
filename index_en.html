@@ -663,11 +663,13 @@
             </main>
 
             <main id="event" style="display: none;">
-                <div class="d-flex justify-content-center align-items-center" style="width: 100%; height: 400px; background: url('./assets/img/sub_banner_ev.png') center top/cover">
+                <div class="d-flex justify-content-center align-items-center sub-cover" style="width: 100%; height: 400px; background: url('./assets/img/sub_banner_ev.png') center top/cover">
                     <h2 class="text-white">Event</h2>
                 </div>
-                <div class="container my-5">
-                    <div id="event-list" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"></div>
+                <div class="container ">
+                    <div id="event-list" class="row g-4 my-5">
+
+                    </div>
                 </div>
             </main>
 
@@ -675,358 +677,11 @@
                 <div class="d-flex justify-content-center align-items-center sub-cover" style="width: 100%; background: url('./assets/img/sub_banner_notice.png') center top/cover">
                     <h2 class="text-white">Notice</h2>
                 </div>
-                <!--
-                <div class="container-xl">
 
-
-
-
-                    <div class="table-responsive my-5">
-                        <table class="table">
-                            <tr>
-                                <th class="text-center">No.</th>
-                                <th class="text-center">Title</th>
-                                <th class="text-center">Date</th>
-                            </tr>
-
-                            <tr data-notice-id="notice_1">
-                                <td class="text-center"><span class="badge text-bg-primary">Notice</span></td>
-                                <td>HiKR GROUND Filming Guidelines</td>
-                                <td class="text-center">2025-02-27</td>
-                            </tr>
-                            <tr data-notice-id="notice_2">
-                                <td class="text-center"><span class="badge text-bg-primary">Notice</span></td>
-                                <td>HiKR GROUND Leaflet</td>
-                                <td class="text-center">2025-04-25</td>
-                            </tr>
-                            <tr data-notice-id="notice_3">
-                                <td class="text-center"><span class="badge text-bg-primary">Notice</span></td>
-                                <td>HiKR GROUND Rental & Filming Notice Information</td>
-                                <td class="text-center">2025-04-25</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center"><span class="badge text-bg-primary">Notice</span></td>
-                                <td>HiKR Festa Period Regular Program Schedule Change Notice</td>
-                                <td class="text-center">2024-10-02</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center"><span class="badge text-bg-primary">Notice</span></td>
-                                <td>Guide to Making Reservations for Group Visitors to HiKR Ground (Chinese)</td>
-                                <td class="text-center">2024-03-28</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center"><span class="badge text-bg-primary">Notice</span></td>
-                                <td>Guide to Making Reservations for Group Visitors to HiKR Grou…</td>
-                                <td class="text-center">2024-03-28</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center"><span class="badge text-bg-primary">Notice</span></td>
-                                <td>HiKR GROUND Group Visitor Advance Reservation Notice</td>
-                                <td class="text-center">2024-03-28</td>
-                            </tr>
-
-                            <tr>
-                                <td class="text-center">54</td>
-                                <td>HiKR GROUND 5th Floor Closure Notice (Date: September 16, 2025 (Tue))</td>
-                                <td class="text-center">2025-09-12</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">53</td>
-                                <td>Docent FAQ & On-site Event Notice</td>
-                                <td class="text-center">2025-09-11</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">52</td>
-                                <td>HiKR GROUND All day Closed Notice (Date: 2025.09.01(month) ~ 09.04(Thu)/09.15(Mon))</td>
-                                <td class="text-center">2025-08-28</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">51</td>
-                                <td>HiKR GROUND On-site Program Temporary Suspension Notice(Date: 2025.09.01(month) ~ 2025.09.15(month))</td>
-                                <td class="text-center">2025-08-21</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">50</td>
-                                <td>HiKR GROUND All day Closed Notice (Date: 2025.08.24 (day))</td>
-                                <td class="text-center">2025-08-19</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">49</td>
-                                <td>HiKR GROUND 2nd & 3rd Floor Temporary Access Restriction Notice (Date: August 7, 2025 (Thu))</td>
-                                <td class="text-center">2025-08-07</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">48</td>
-                                <td>HiKR GROUND 4th Floor Access Restriction Notice (Date: July 8-9, 2025)</td>
-                                <td class="text-center">2025-07-02</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">47</td>
-                                <td>HiKR GROUND 5th Floor Access Restriction Notice (Date: June 8, 2025 (Sun))</td>
-                                <td class="text-center">2025-06-05</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                </div>-->
 
                 <div class="container">
                     <div class="row g-4 my-5">
-                        <!-- Notice 1 -->
-                        <div class="col-6 col-xl-3">
-                            <div class="card h-100 notice-card" data-notice-id="notice_1" style="cursor: pointer;">
-                                <img src="./assets/img/insta_01.jpg?1" class="card-img" alt="Notice image">
-                                <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                    <div class="notice-overlay-gradient"></div>
-                                    <div class="notice-content">
-                                        <div class="d-flex justify-content-start align-items-center">
 
-                                            <h5 class="card-title text-white">HiKR GROUND Filming Guidelines</h5>
-                                        </div>
-                                        <small class="text-white">2025-02-27</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Notice 2 -->
-                        <div class="col-6 col-xl-3">
-                            <div class="card h-100 notice-card" data-notice-id="notice_2" style="cursor: pointer;">
-                                <img src="./assets/img/insta_11.jpg?1" class="card-img" alt="Notice image">
-                                <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                    <div class="notice-overlay-gradient"></div>
-                                    <div class="notice-content">
-                                        <div class="d-flex justify-content-start align-items-center">
-
-                                            <h5 class="card-title text-white">HiKR GROUND Leaflet</h5>
-                                        </div>
-                                        <small class="text-white">2025-04-25</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Notice 3 -->
-                        <div class="col-6 col-xl-3">
-                            <div class="card h-100 notice-card" data-notice-id="notice_3" style="cursor: pointer;">
-                                <img src="./assets/img/insta_13.jpg?1" class="card-img" alt="Notice image">
-                                <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                    <div class="notice-overlay-gradient"></div>
-                                    <div class="notice-content">
-                                        <div class="d-flex justify-content-start align-items-center">
-
-                                            <h5 class="card-title text-white">HiKR GROUND Rental & Filming Notice Information</h5>
-                                        </div>
-                                        <small class="text-white">2025-04-25</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Notice 4 -->
-                        <div class="col-6 col-xl-3">
-                            <div class="card h-100 notice-card" style="cursor: pointer;">
-                                <img src="./assets/img/insta_21.jpg?1" class="card-img" alt="Notice image">
-                                <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                    <div class="notice-overlay-gradient"></div>
-                                    <div class="notice-content">
-                                        <div class="d-flex justify-content-start align-items-center">
-
-                                            <h5 class="card-title text-white">HiKR Festa Period Regular Program Schedule Change Notice</h5>
-                                        </div>
-                                        <small class="text-white">2024-10-02</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Notice 5 -->
-                        <div class="col-6 col-xl-3">
-                            <div class="card h-100 notice-card" style="cursor: pointer;">
-                                <img src="./assets/img/insta_22.jpg?1" class="card-img" alt="Notice image">
-                                <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                    <div class="notice-overlay-gradient"></div>
-                                    <div class="notice-content">
-                                        <div class="d-flex justify-content-start align-items-center">
-
-                                            <h5 class="card-title text-white">Guide to Making Reservations for Group Visitors to HiKR Ground (Chinese)</h5>
-                                        </div>
-                                        <small class="text-white">2024-03-28</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Notice 6 -->
-                        <div class="col-6 col-xl-3">
-                            <div class="card h-100 notice-card" style="cursor: pointer;">
-                                <img src="./assets/img/insta_31.jpg?1" class="card-img" alt="Notice image">
-                                <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                    <div class="notice-overlay-gradient"></div>
-                                    <div class="notice-content">
-                                        <div class="d-flex justify-content-start align-items-center">
-
-                                            <h5 class="card-title text-white">Guide to Making Reservations for Group Visitors to HiKR Ground</h5>
-                                        </div>
-                                        <small class="text-white">2024-03-28</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Notice 7 -->
-                        <div class="col-6 col-xl-3">
-                            <div class="card h-100 notice-card" style="cursor: pointer;">
-                                <img src="./assets/img/insta_41.jpg?1" class="card-img" alt="Notice image">
-                                <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                    <div class="notice-overlay-gradient"></div>
-                                    <div class="notice-content">
-                                        <div class="d-flex justify-content-start align-items-center">
-
-                                            <h5 class="card-title text-white">HiKR GROUND Group Visitor Advance Reservation Notice</h5>
-                                        </div>
-                                        <small class="text-white">2024-03-28</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- General Notice 54 -->
-                        <div class="col-6 col-xl-3">
-                            <div class="card h-100 notice-card" style="cursor: pointer;">
-                                <img src="./assets/img/insta_51.jpg?1" class="card-img" alt="Notice image">
-                                <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                    <div class="notice-overlay-gradient"></div>
-                                    <div class="notice-content">
-                                        <div class="d-flex justify-content-start align-items-center">
-                                            <span class="badge text-bg-secondary me-2">54</span>
-                                            <h5 class="card-title text-white">HiKR GROUND 5th Floor Closure Notice (Date: September 16, 2025 (Tue))</h5>
-                                        </div>
-                                        <small class="text-white">2025-09-12</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- General Notice 53 -->
-                        <div class="col-6 col-xl-3">
-                            <div class="card h-100 notice-card" style="cursor: pointer;">
-                                <img src="./assets/img/tmp_notice_01.png" class="card-img" alt="Notice image">
-                                <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                    <div class="notice-overlay-gradient"></div>
-                                    <div class="notice-content">
-                                        <div class="d-flex justify-content-start align-items-center">
-                                            <span class="badge text-bg-secondary me-2">53</span>
-                                            <h5 class="card-title text-white">Docent FAQ & On-site Event Notice</h5>
-                                        </div>
-                                        <small class="text-white">2025-09-11</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- General Notice 52 -->
-                        <div class="col-6 col-xl-3">
-                            <div class="card h-100 notice-card" style="cursor: pointer;">
-                                <img src="./assets/img/insta_02.jpg?1" class="card-img" alt="Notice image">
-                                <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                    <div class="notice-overlay-gradient"></div>
-                                    <div class="notice-content">
-                                        <div class="d-flex justify-content-start align-items-center">
-                                            <span class="badge text-bg-secondary me-2">52</span>
-                                            <h5 class="card-title text-white">HiKR GROUND All day Closed Notice (Date: 2025.09.01(month) ~ 09.04(Thu)/09.15(Mon))</h5>
-                                        </div>
-                                        <small class="text-white">2025-08-28</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- General Notice 51 -->
-                        <div class="col-6 col-xl-3">
-                            <div class="card h-100 notice-card" style="cursor: pointer;">
-                                <img src="./assets/img/insta_03.jpg?1" class="card-img" alt="Notice image">
-                                <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                    <div class="notice-overlay-gradient"></div>
-                                    <div class="notice-content">
-                                        <div class="d-flex justify-content-start align-items-center">
-                                            <span class="badge text-bg-secondary me-2">51</span>
-                                            <h5 class="card-title text-white">HiKR GROUND On-site Program Temporary Suspension Notice(Date: 2025.09.01(month) ~ 2025.09.15(month))</h5>
-                                        </div>
-                                        <small class="text-white">2025-08-21</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- General Notice 50 -->
-                        <div class="col-6 col-xl-3">
-                            <div class="card h-100 notice-card" style="cursor: pointer;">
-                                <img src="./assets/img/insta_12.jpg?1" class="card-img" alt="Notice image">
-                                <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                    <div class="notice-overlay-gradient"></div>
-                                    <div class="notice-content">
-                                        <div class="d-flex justify-content-start align-items-center">
-                                            <span class="badge text-bg-secondary me-2">50</span>
-                                            <h5 class="card-title text-white">HiKR GROUND All day Closed Notice (Date: 2025.08.24 (day))</h5>
-                                        </div>
-                                        <small class="text-white">2025-08-19</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- General Notice 49 -->
-                        <div class="col-6 col-xl-3">
-                            <div class="card h-100 notice-card" style="cursor: pointer;">
-                                <img src="./assets/img/insta_13.jpg?1" class="card-img" alt="Notice image">
-                                <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                    <div class="notice-overlay-gradient"></div>
-                                    <div class="notice-content">
-                                        <div class="d-flex justify-content-start align-items-center">
-                                            <span class="badge text-bg-secondary me-2">49</span>
-                                            <h5 class="card-title text-white">HiKR GROUND 2nd & 3rd Floor Temporary Access Restriction Notice (Date: August 7, 2025 (Thu))</h5>
-                                        </div>
-                                        <small class="text-white">2025-08-07</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- General Notice 48 -->
-                        <div class="col-6 col-xl-3">
-                            <div class="card h-100 notice-card" style="cursor: pointer;">
-                                <img src="./assets/img/insta_21.jpg?1" class="card-img" alt="Notice image">
-                                <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                    <div class="notice-overlay-gradient"></div>
-                                    <div class="notice-content">
-                                        <div class="d-flex justify-content-start align-items-center">
-                                            <span class="badge text-bg-secondary me-2">48</span>
-                                            <h5 class="card-title text-white">HiKR GROUND 4th Floor Access Restriction Notice (Date: July 8-9, 2025)</h5>
-                                        </div>
-                                        <small class="text-white">2025-07-02</small>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- General Notice 47 -->
-                        <div class="col-6 col-xl-3">
-                            <div class="card h-100 notice-card" style="cursor: pointer;">
-                                <img src="./assets/img/insta_22.jpg?1" class="card-img" alt="Notice image">
-                                <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                    <div class="notice-overlay-gradient"></div>
-                                    <div class="notice-content">
-                                        <div class="d-flex justify-content-start align-items-center">
-                                            <span class="badge text-bg-secondary me-2">47</span>
-                                            <h5 class="card-title text-white">HiKR GROUND 5th Floor Access Restriction Notice (Date: June 8, 2025 (Sun))</h5>
-                                        </div>
-                                        <small class="text-white">2025-06-05</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -1804,17 +1459,18 @@
 
 <!-- Notice Detail Modal -->
 <div class="modal fade" id="noticeModal" tabindex="-1" aria-labelledby="noticeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content rounded-5">
-            <div class="modal-header  border-bottom px-4 py-3">
+            <div class="modal-header border-bottom px-4 py-3">
                 <div class="w-100 d-flex justify-content-start align-items-center">
                     <h5 class="modal-title" id="noticeModalLabel"></h5>
                     <span class="badge ms-2 text-bg-secondary" id="noticeModalDate"></span>
+                    <a class="badge ms-2 text-bg-secondary" id="noticeModalLink" target="_blank">바로가기</a>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body px-4 py-3">
-                <div id="noticeModalContent" data-simplebar style="max-height: 800px; padding-right: 15px;">
+                <div id="noticeModalContent">
                 </div>
             </div>
         </div>

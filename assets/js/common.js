@@ -1,10 +1,11 @@
 'use strict';
 
 let noticeLoaded = false;
+let eventLoaded = false;
 
 async function loadNoticeFromAPI() {
     try {
-        const response = await fetch('./api/get_posts.php?page=1&limit=16');
+        const response = await fetch('./api/get_posts.php?page=1&limit=100&section=notice');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -40,8 +41,10 @@ function displayNoticeCards(posts) {
 
 function createNoticeCard(post) {
     const imageUrl = post.image_url || './assets/img/tmp_notice_01.png';
-    let title = '공지사항';
-    if (post.content) {
+
+    // title 필드가 있으면 사용, 없으면 content에서 첫 줄 추출
+    let title = post.title || '공지사항';
+    if (!post.title && post.content) {
         const lines = post.content.split('\n').filter(line => line.trim() !== '');
         if (lines.length > 0) {
             title = lines[0];
@@ -50,14 +53,20 @@ function createNoticeCard(post) {
     if (title.length > 50) {
         title = title.substring(0, 47) + '...';
     }
+
     const postDate = formatNoticeDate(post.posted_at);
+    const postUrl = post.post_url || `https://www.instagram.com/p/${post.post_id}/`;
+    const postId = post.post_id || post.id;
+
     return `
-        <div class="col-6 col-xl-3">
+        <div class="col-6 col-xl-4 my-3">
             <div class="card h-100 notice-card api-notice" 
-                 data-title="${escapeHtml(title)}"
+                 data-post-id="${escapeHtml(postId)}"
+                 data-title="${escapeHtml(post.title || title)}"
                  data-date="${postDate}"
-                 data-content="${escapeHtml(post.content).replace(/\n/g, '<br>')}"
+                 data-content="${post.content.replace(/\n/g, '<br>')}"
                  data-image-url="${imageUrl}"
+                 data-post-url="${postUrl}"
                  style="cursor: pointer;">
                 <img src="${imageUrl}" class="card-img" alt="${escapeHtml(title)}" onerror="this.src='./assets/img/tmp_notice_01.png'">
                 <div class="card-img-overlay d-flex flex-column justify-content-end">
@@ -104,9 +113,111 @@ function bindAPINoticeClickEvents() {
         const date = $(this).data('date');
         const content = $(this).data('content');
         const imageUrl = $(this).data('image-url');
-        showNoticeModal(title, date, content, imageUrl);
+        const postUrl = $(this).data('post-url');
+        const postId = $(this).data('post-id');
+        showNoticeModal(title, date, content, imageUrl, postUrl, postId);
     });
 }
+
+function bindAPIEventClickEvents() {
+    $(document).off('click', '.api-event').on('click', '.api-event', function() {
+        const title = $(this).data('title');
+        const date = $(this).data('date');
+        const content = $(this).data('content');
+        const imageUrl = $(this).data('image-url');
+        const postUrl = $(this).data('post-url');
+        const postId = $(this).data('post-id');
+        showNoticeModal(title, date, content, imageUrl, postUrl, postId);
+    });
+}
+
+function handleNoticeHashChange() {
+    const hash = window.location.hash;
+    if (hash.startsWith('#notice-')) {
+        const postId = hash.replace('#notice-', '');
+        openNoticeModalByPostId(postId);
+    }
+}
+
+async function openNoticeModalByPostId(postId) {
+    try {
+        const response = await fetch('./api/get_posts.php?page=1&limit=1000');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+        if (!result.success || !result.data || !result.data.posts) {
+            return;
+        }
+
+        const post = result.data.posts.find(p =>
+            p.post_id === postId || p.id.toString() === postId
+        );
+
+        if (post) {
+            const imageUrl = post.image_url || './assets/img/tmp_notice_01.png';
+
+            // title 필드가 있으면 사용, 없으면 content에서 첫 줄 추출
+            let title = post.title || '공지사항';
+            if (!post.title && post.content) {
+                const lines = post.content.split('\n').filter(line => line.trim() !== '');
+                if (lines.length > 0) {
+                    title = lines[0];
+                }
+            }
+
+            const postDate = formatNoticeDate(post.posted_at);
+            const postUrl = post.post_url || `https://www.instagram.com/p/${post.post_id}/`;
+            const content = post.content.replace(/\n/g, '<br>');
+
+            showNoticeModal(title, postDate, content, imageUrl, postUrl, post.post_id || post.id);
+        }
+    } catch (error) {
+        console.error('게시물을 불러오는데 실패했습니다:', error);
+    }
+}
+
+function convertHashtagsAndMentionsToLinks(content) {
+    if (!content) return '';
+
+    // 해시태그 패턴: # 다음에 한글, 영문, 숫자가 오는 경우
+    const hashtagPattern = /#([가-힣a-zA-Z0-9_]+)/g;
+
+    // 멘션 패턴: @ 다음에 영문, 숫자, 점, 언더스코어가 오는 경우
+    const mentionPattern = /@([a-zA-Z0-9._]+)/g;
+
+    // 해시태그를 링크로 변환
+    let result = content.replace(hashtagPattern, function(match, hashtag) {
+        const instagramUrl = `https://www.instagram.com/explore/tags/${encodeURIComponent(hashtag)}/`;
+        return `<a href="${instagramUrl}" target="_blank" rel="noopener noreferrer" style="color: #0095f6; text-decoration: none;">${match}</a>`;
+    });
+
+    // 멘션을 링크로 변환
+    result = result.replace(mentionPattern, function(match, username) {
+        const instagramUrl = `https://www.instagram.com/${encodeURIComponent(username)}/`;
+        return `<a href="${instagramUrl}" target="_blank" rel="noopener noreferrer" style="color: #0095f6; text-decoration: none;">${match}</a>`;
+    });
+
+    return result;
+}
+
+function initNoticeModalEvents() {
+    const noticeModal = document.getElementById('noticeModal');
+    if (noticeModal) {
+        noticeModal.addEventListener('hidden.bs.modal', function () {
+            // backdrop 제거
+            const backdrops = document.querySelectorAll('.modal-backdrop');
+            backdrops.forEach(backdrop => backdrop.remove());
+
+            // body 클래스 정리
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+        });
+    }
+}
+
+
 
 function initializeNoticeSection() {
     if (noticeLoaded) {
@@ -123,15 +234,22 @@ $(function() {
     initOffcanvas();
     initRouting();
     bindMenuEvents();
-    // bindNoticeEvents();
+    initNoticeModalEvents();
+
     $(window).on('resize', function() {
         applyScreenHeight();
         handleOffcanvasResize();
         AOS.refresh();
     }).trigger('resize');
+
+    $(window).on('hashchange', handleNoticeHashChange);
+
     initSlide();
     loadInstagramEvents();
     handleIntroLayout();
+
+    // 페이지 로드 시 해시 확인
+    handleNoticeHashChange();
 });
 
 function hidePageLoader() {
@@ -265,19 +383,23 @@ function updateWrapperClass(page) {
     }
 }
 
-function showNoticeModal(title, date, content, imageUrl, postUrl) {
+function showNoticeModal(title, date, content, imageUrl, postUrl, postId) {
     $('#noticeModalLabel').text(title);
     $('#noticeModalDate').text(date);
-    $('#noticeModalLink').attr('href', postUrl);
+    $('#noticeModalLink').attr('href', postUrl || '#').toggle(!!postUrl);
+
+    // 해시태그와 멘션을 링크로 변환
+    const contentWithLinks = convertHashtagsAndMentionsToLinks(content);
 
     let modalContent = '';
     modalContent += '<div class="row">';
     if (imageUrl) {
         modalContent += `<div class="col-12 col-lg-6"><img src="${imageUrl}" style="width: 100%; max-width: 100%; height: auto; margin-bottom: 1rem;" alt="${title}" onerror="this.style.display='none'"></div>`;
     }
-    modalContent += `<div class="col-12 col-lg-6"><div style="height: 80vh; overflow-y: auto;">${content}</div></div>`;
+    modalContent += `<div class="col-12 col-lg-6"><div style="height: 80vh; overflow-y: auto; white-space: pre-wrap; word-break: break-word;">${contentWithLinks}</div></div>`;
     modalContent += `</div>`;
     $('#noticeModalContent').html(modalContent);
+
     const modal = new bootstrap.Modal($('#noticeModal')[0]);
     modal.show();
 }
@@ -328,28 +450,68 @@ function toggleOffcanvas(page) {
 
 async function loadInstagramEvents() {
     try {
-        const response = await fetch('./api/api_feed.php');
-        if (!response.ok) throw new Error('Network response was not ok');
-        const posts = await response.json();
+        const response = await fetch('./api/get_posts.php?page=1&limit=100&section=event');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+        if (!result.success || !result.data || !result.data.posts) {
+            throw new Error('API 응답 형식이 올바르지 않습니다.');
+        }
+        const posts = result.data.posts;
         const $eventList = $('#event-list');
+
         if (posts.length === 0) {
             $eventList.html('<p class="text-center col-12">진행 중인 이벤트가 없습니다.</p>');
             return;
         }
-        const postElements = posts.map(post => `
-            <div class="col">
-                <a href="${post.permalink}" target="_blank" class="card-link">
-                    <div class="card h-100 notice-card">
-                        <img src="${post.media_url}" class="card-img-top" alt="이벤트 이미지" style="aspect-ratio: 1 / 1; object-fit: cover;">
-                        <div class="card-body">
-                            <p class="card-text-insta">${post.caption.substring(0, 100)}...</p>
+
+        const postElements = posts.map(post => {
+            const imageUrl = post.image_url || './assets/img/tmp_notice_01.png';
+            let title = post.title || '이벤트';
+            if (!post.title && post.content) {
+                const lines = post.content.split('\n').filter(line => line.trim() !== '');
+                if (lines.length > 0) {
+                    title = lines[0];
+                    if (title.length > 50) {
+                        title = title.substring(0, 47) + '...';
+                    }
+                }
+            }
+            const postDate = formatNoticeDate(post.posted_at);
+            const postUrl = post.post_url || `https://www.instagram.com/p/${post.post_id}/`;
+            const postId = post.post_id || post.id;
+
+            return `<div class="col-6 col-xl-4 my-3">
+            <div class="card h-100 notice-card api-event" 
+                 data-post-id="${escapeHtml(postId)}"
+                 data-title="${escapeHtml(post.title || title)}"
+                 data-date="${postDate}"
+                 data-content="${post.content.replace(/\n/g, '<br>')}"
+                 data-image-url="${imageUrl}"
+                 data-post-url="${postUrl}"
+                 style="cursor: pointer;">
+                <img src="${imageUrl}" class="card-img" alt="${escapeHtml(title)}" onerror="this.src='./assets/img/tmp_notice_01.png'">
+                <div class="card-img-overlay d-flex flex-column justify-content-end">
+                    <div class="notice-overlay-gradient"></div>
+                    <div class="notice-content">
+                        <div class="d-flex justify-content-start align-items-center">
+                            <h5 class="card-title text-white">${escapeHtml(title)}</h5>
                         </div>
+                        <small class="text-white">${postDate}</small>
                     </div>
-                </a>
-            </div>`);
+                </div>
+            </div>
+        </div>
+                
+            `;
+        });
+
         $eventList.html(postElements.join(''));
+        bindAPIEventClickEvents();
+
     } catch (error) {
-        console.error('Error fetching Instagram events:', error);
+        console.error('이벤트 로드 실패:', error);
         $('#event-list').html('<p class="text-center col-12">이벤트 정보를 불러오는 데 실패했습니다.</p>');
     }
 }

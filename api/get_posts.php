@@ -27,15 +27,69 @@ try {
 
     // 페이지 파라미터
     $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
-    $limit = isset($_GET['limit']) ? max(1, min(50, intval($_GET['limit']))) : 10;
+    $limit = isset($_GET['limit']) ? max(1, min(500, intval($_GET['limit']))) : 10;
+    $section = isset($_GET['section']) ? trim($_GET['section']) : null;
     $offset = ($page - 1) * $limit;
 
+    // WHERE 조건 구성
+    $whereConditions = ['is_active = 1'];
+    $params = [];
+
+    // section 필터 추가
+    if ($section) {
+        $whereConditions[] = 'section = :section';
+        $params[':section'] = $section;
+    }
+
+    $whereClause = implode(' AND ', $whereConditions);
+
     // 전체 게시물 수 조회
-    $totalPosts = $db->getTotalPostsCount();
+    $countSql = "SELECT COUNT(*) as total FROM instagram_posts WHERE $whereClause";
+    $countStmt = $conn->prepare($countSql);
+    foreach ($params as $key => $value) {
+        $countStmt->bindValue($key, $value);
+    }
+    $countStmt->execute();
+    $totalPosts = $countStmt->fetch()['total'];
     $totalPages = ceil($totalPosts / $limit);
 
-    // 게시물 목록 조회
-    $posts = $db->getPosts($limit, $offset);
+    // 게시물 목록 조회 (section, lang, title 추가)
+    $sql = "SELECT 
+                id,
+                post_url,
+                post_id,
+                username,
+                profile_image,
+                section,
+                lang,
+                title,
+                content,
+                video_url,
+                image_url,
+                media_type,
+                likes_count,
+                audio_name,
+                audio_url,
+                hashtags,
+                posted_at,
+                crawled_at,
+                updated_at
+            FROM instagram_posts 
+            WHERE $whereClause
+            ORDER BY posted_at DESC, id DESC
+            LIMIT :limit OFFSET :offset";
+
+    $stmt = $conn->prepare($sql);
+
+    // 파라미터 바인딩
+    foreach ($params as $key => $value) {
+        $stmt->bindValue($key, $value);
+    }
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+    $stmt->execute();
+    $posts = $stmt->fetchAll();
 
     // 해시태그 JSON 디코딩
     foreach ($posts as &$post) {

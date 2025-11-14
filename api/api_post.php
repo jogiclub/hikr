@@ -1,14 +1,12 @@
 <?php
-/**
- * Instagram Post Detail API
- * 특정 게시물의 상세 정보를 제공하는 API
- */
+// 에러 표시 활성화 (디버깅용)
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-// CORS 헤더 설정
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type, Authorization');
 header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
 
 // OPTIONS 요청 처리
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -16,155 +14,122 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-// GET 요청만 허용
-if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
-    http_response_code(405);
-    echo json_encode([
-        'success' => false,
-        'error' => [
-            'code' => 'METHOD_NOT_ALLOWED',
-            'message' => 'Only GET requests are allowed'
-        ]
-    ], JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
-require_once __DIR__ . '/database.php';
-
 try {
-    // post_id 또는 id 파라미터 확인
-    $post_id = isset($_GET['post_id']) ? trim($_GET['post_id']) : null;
-    $id = isset($_GET['id']) ? intval($_GET['id']) : null;
-
-    if (!$post_id && !$id) {
-        http_response_code(400);
-        echo json_encode([
-            'success' => false,
-            'error' => [
-                'code' => 'MISSING_PARAMETER',
-                'message' => 'Either post_id or id parameter is required'
-            ]
-        ], JSON_UNESCAPED_UNICODE);
-        exit;
+    // database.php 파일 확인
+    if (!file_exists('./database.php')) {
+        throw new Exception('database.php 파일을 찾을 수 없습니다.');
     }
+
+    require_once './database.php';
 
     $db = new Database();
     $conn = $db->getConnection();
 
-    // SQL 쿼리 구성
-    if ($post_id) {
-        $sql = "SELECT 
-                    id,
-                    post_url,
-                    post_id,
-                    username,
-                    profile_image,
-                    content,
-                    video_url,
-                    image_url,
-                    media_type,
-                    likes_count,
-                    audio_name,
-                    audio_url,
-                    hashtags,
-                    posted_at,
-                    crawled_at,
-                    updated_at
-                FROM instagram_posts 
-                WHERE post_id = :post_id AND is_active = 1
-                LIMIT 1";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindValue(':post_id', $post_id);
-    } else {
-        $sql = "SELECT 
-                    id,
-                    post_url,
-                    post_id,
-                    username,
-                    profile_image,
-                    content,
-                    video_url,
-                    image_url,
-                    media_type,
-                    likes_count,
-                    audio_name,
-                    audio_url,
-                    hashtags,
-                    posted_at,
-                    crawled_at,
-                    updated_at
-                FROM instagram_posts 
-                WHERE id = :id AND is_active = 1
-                LIMIT 1";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    // 페이지 파라미터
+    $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+    $limit = isset($_GET['limit']) ? max(1, min(500, intval($_GET['limit']))) : 10;
+    $section = isset($_GET['section']) ? trim($_GET['section']) : null;
+    $offset = ($page - 1) * $limit;
+
+    // WHERE 조건 구성
+    $whereConditions = ['is_active = 1'];
+    $params = [];
+
+    // section 필터 추가
+    if ($section) {
+        $whereConditions[] = 'section = :section';
+        $params[':section'] = $section;
     }
+
+    $whereClause = implode(' AND ', $whereConditions);
+
+    // 전체 게시물 수 조회
+    $countSql = "SELECT COUNT(*) as total FROM instagram_posts WHERE $whereClause";
+    $countStmt = $conn->prepare($countSql);
+    foreach ($params as $key => $value) {
+        $countStmt->bindValue($key, $value);
+    }
+    $countStmt->execute();
+    $totalPosts = $countStmt->fetch()['total'];
+    $totalPages = ceil($totalPosts / $limit);
+
+    // 게시물 목록 조회 (section, lang, title 추가)
+    $sql = "SELECT 
+                id,
+                post_url,
+                post_id,
+                username,
+                profile_image,
+                section,
+                lang,
+                title,
+                content,
+                video_url,
+                image_url,
+                media_type,
+                likes_count,
+                audio_name,
+                audio_url,
+                hashtags,
+                posted_at,
+                crawled_at,
+                updated_at
+            FROM instagram_posts 
+            WHERE $whereClause
+            ORDER BY posted_at DESC, id DESC
+            LIMIT :limit OFFSET :offset";
+
+    $stmt = $conn->prepare($sql);
+
+    // 파라미터 바인딩
+    foreach ($params as $key => $value) {
+        $stmt->bindValue($key, $value);
+    }
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 
     $stmt->execute();
-    $post = $stmt->fetch();
+    $posts = $stmt->fetchAll();
 
-    if (!$post) {
-        http_response_code(404);
-        echo json_encode([
-            'success' => false,
-            'error' => [
-                'code' => 'POST_NOT_FOUND',
-                'message' => 'The requested post was not found'
-            ]
-        ], JSON_UNESCAPED_UNICODE);
-        exit;
+    // 해시태그 JSON 디코딩
+    foreach ($posts as &$post) {
+        if (!empty($post['hashtags'])) {
+            $decoded = json_decode($post['hashtags'], true);
+            $post['hashtags_array'] = is_array($decoded) ? $decoded : [];
+        } else {
+            $post['hashtags_array'] = [];
+        }
     }
 
-    // 데이터 정제
-    if (!empty($post['hashtags'])) {
-        $decoded = json_decode($post['hashtags'], true);
-        $post['hashtags'] = is_array($decoded) ? $decoded : [];
-    } else {
-        $post['hashtags'] = [];
-    }
-
-    $post['id'] = intval($post['id']);
-    $post['likes_count'] = intval($post['likes_count']);
-    $post['profile_image'] = $post['profile_image'] ?: null;
-    $post['content'] = $post['content'] ?: null;
-    $post['video_url'] = $post['video_url'] ?: null;
-    $post['image_url'] = $post['image_url'] ?: null;
-    $post['audio_name'] = $post['audio_name'] ?: null;
-    $post['audio_url'] = $post['audio_url'] ?: null;
-
-    // 응답 구성
+    // 응답 데이터
     $response = [
         'success' => true,
         'data' => [
-            'post' => $post
+            'posts' => $posts,
+            'pagination' => [
+                'currentPage' => $page,
+                'totalPages' => $totalPages,
+                'total' => $totalPosts,
+                'limit' => $limit
+            ]
         ],
-        'meta' => [
-            'timestamp' => date('Y-m-d H:i:s'),
-            'api_version' => '1.0'
-        ]
+        'timestamp' => date('Y-m-d H:i:s')
     ];
 
     echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
-} catch (PDOException $e) {
-    http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'error' => [
-            'code' => 'DATABASE_ERROR',
-            'message' => 'Database error occurred',
-            'details' => $e->getMessage()
-        ]
-    ], JSON_UNESCAPED_UNICODE);
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode([
+
+    $errorResponse = [
         'success' => false,
-        'error' => [
-            'code' => 'INTERNAL_ERROR',
-            'message' => 'An internal error occurred',
-            'details' => $e->getMessage()
-        ]
-    ], JSON_UNESCAPED_UNICODE);
+        'message' => '데이터 조회 중 오류가 발생했습니다.',
+        'error' => $e->getMessage(),
+        'file' => $e->getFile(),
+        'line' => $e->getLine(),
+        'trace' => $e->getTraceAsString()
+    ];
+
+    echo json_encode($errorResponse, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 }
 ?>
